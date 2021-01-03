@@ -3,7 +3,7 @@ import { StyleSheet, ScrollView, TextInput, View, FlatList, Modal, LayoutAnimati
 import { Title, Text, FAB, Appbar, IconButton, Button, Headline, Portal, Dialog, Paragraph} from 'react-native-paper'
 import DateTimePicker from '@react-native-community/datetimepicker'
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {Icon} from '../components/Common'
+import {Icon, dateToString} from '../components/Common'
 import SubCard from '../components/SubCard'
 
 /*Subscriptions object
@@ -186,13 +186,13 @@ export default function Home() {
                 <DateTimePicker mode="date"  value={endDate} onChange={(_, d) => setEndDate(d)}/> */}
 
                 <Headline>Subscription Start</Headline>
-                <Button mode="outlined" onPress={showSD} style={styles.startDate}>Start Date: {startDate.getDate()}</Button>
+                <Button mode="outlined" uppercase={false} onPress={showSD} style={styles.startDate}>Start Date: {dateToString(startDate)}</Button>
                 
                 {startDateDialog && <DateTimePicker mode="date" value={startDate} onChange={(_, d) => setStartDate(d)}/>}
                 {/* {startDateDialog? <DateTimePicker mode="date"value={startDate} onChange={(_, d) => setStartDate(d)}/>: null} */}
 
                 <Headline>Subscription End</Headline>
-                <Button mode="outlined" onPress={showED} style={styles.endDate}>End Date: {endDate.getDate()}</Button>
+                <Button mode="outlined" uppercase={false} onPress={showED} style={styles.endDate}>End Date: {dateToString(endDate)}</Button>
 
                 {endDateDialog && <DateTimePicker mode="date" value={endDate} onChange={(_, d) => setEndDate(d)}/>}
 
@@ -302,14 +302,14 @@ const styles = StyleSheet.create({
     },
     
     startDate: {
-        width: "50%", 
-        marginLeft: "25%"
+        width: "70%", 
+        marginLeft: "15%"
        
     }, 
 
     endDate: {
-        width: "50%", 
-        marginLeft: "25%"
+        width: "70%", 
+        marginLeft: "15%"
     },
 
     fab: {
