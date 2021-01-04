@@ -3,16 +3,17 @@ import { StyleSheet, View} from 'react-native'
 import {Appbar, Divider,Switch, List,Menu,Button} from 'react-native-paper'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useEffect } from 'react';
+import {timeToString} from '../components/Common'
 
 // state : {
-//     displayTime: String
 //     timeOfNotification: Number
 //     darkMode: Boolean
 //     allowReminders: Boolean
 // }
 
+//TODO: [X] remove displayTime and create a function that changes Number to displayTime
+
 export default function Settings() {
-    const DEFAULT_TIME_STRING = "12:00 PM"
     const DEFAULT_TIME = 12
 
 
@@ -23,14 +24,13 @@ export default function Settings() {
 
     useEffect(() => {
         const check = async() => {
-            const displayTime = await AsyncStorage.getItem('@displayTime')
             const timeOfNotification = await AsyncStorage.getItem('@timeOfNotification')
-            console.log(displayTime)
             console.log("noti: " + timeOfNotification)
 
-            if (!displayTime) {
+            await AsyncStorage.removeItem('@displayTime')
+
+            if (!timeOfNotification) {
                 try {
-                    await AsyncStorage.setItem('@displayTime', DEFAULT_TIME_STRING)
                     await AsyncStorage.setItem('@timeOfNotification', JSON.stringify(DEFAULT_TIME))
                 } catch(e) {
                 }
@@ -38,7 +38,6 @@ export default function Settings() {
 
     
             setState({
-                displayTime: displayTime? displayTime: DEFAULT_TIME_STRING,
                 timeOfNotification: timeOfNotification? JSON.parse(timeOfNotification): DEFAULT_TIME
             })
   
@@ -56,22 +55,12 @@ export default function Settings() {
     const closeTimeMenu = () => setTimeMenu(false)
 
     const setTime = async(hour) => {
-        let displayTime;
-
-        if (hour < 12)
-            displayTime = `${hour}:00 AM` //am
-        else if (hour > 12)
-            displayTime = `${hour-12}:00 PM` //pm
-        else
-            displayTime = `${hour}:00 PM` //noon
-        
+    
         setState({
-            displayTime: displayTime,
             timeOfNotification: hour
         })
 
-        try {
-            await AsyncStorage.setItem('@displayTime', displayTime)
+        try { 
             await AsyncStorage.setItem('@timeOfNotification', JSON.stringify(hour))
         } catch(e) {
 
@@ -110,9 +99,9 @@ export default function Settings() {
                 left={props => <List.Icon {...props} color="#4ade80" icon="clock-outline"/>} 
                 right={_ => 
                     <Menu
-                    visible={timeMenu}
-                    onDismiss={closeTimeMenu}
-                    anchor={<Button onPress={() => setTimeMenu(!timeMenu)}>{state.displayTime}</Button>}
+                        visible={timeMenu}
+                        onDismiss={closeTimeMenu}
+                        anchor={<Button onPress={() => setTimeMenu(!timeMenu)}>{timeToString(state.timeOfNotification)}</Button>}
                     >
                         <Menu.Item onPress={() => {setTime(6)}} title="6:00 AM"/>
                         <Menu.Item onPress={() => {setTime(9)}} title="9:00 AM"/>

@@ -68,5 +68,18 @@ function dateToString(date) {
     
 }
 
+function timeToString(hour) {
+    let displayTime;
 
-export {Icon, getColor, dateToString}
+    if (hour < 12)
+        displayTime = `${hour}:00 AM` //am
+    else if (hour > 12)
+        displayTime = `${hour-12}:00 PM` //pm
+    else
+        displayTime = `${hour}:00 PM` //noon
+
+    return displayTime
+}
+
+
+export {Icon, getColor, dateToString, timeToString}

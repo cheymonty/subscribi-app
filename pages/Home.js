@@ -27,9 +27,7 @@ export default function Home() {
     //async has access to anything no matter where it was added
     useEffect(() => {
         const check = async() => {
-            const displayTime = await AsyncStorage.getItem('@displayTime')
             const timeOfNotification = await AsyncStorage.getItem('@timeOfNotification')
-            console.log(displayTime)
             console.log("noti: " + timeOfNotification)
         }
         check()

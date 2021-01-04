@@ -1,0 +1,2 @@
+const DEFAULT_TIME = 12
+
