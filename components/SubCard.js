@@ -18,6 +18,7 @@ export default function SubCard({editPress, deletePress, name, costPerMonth, end
             <TouchableOpacity 
                 style={styles.container}
                 onLongPress={() => actionSheetRef.current?.show()}
+                activeOpacity={0.6}    
             >
                 <View style={{height: "70%"}}>
                     <Title style={styles.cardTitle}>{name}</Title>

@@ -4,7 +4,7 @@ import {Title, Text, Paragraph, Subheading} from 'react-native-paper';
 
 
 const MiniCard = ({name}) => (
-    <TouchableOpacity style={styles.container}>
+    <TouchableOpacity style={styles.container} activeOpacity={0.6}>
         <Text style={styles.title}>{name}</Text>
     </TouchableOpacity>
 );
