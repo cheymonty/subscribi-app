@@ -3,7 +3,9 @@ import { StyleSheet, ScrollView, TextInput, View, FlatList, Modal, LayoutAnimati
 import { Title, Text, FAB, Appbar, IconButton, Button, Headline, Portal, Dialog, Paragraph} from 'react-native-paper'
 import DateTimePicker from '@react-native-community/datetimepicker'
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import SegmentedPicker from 'react-native-segmented-picker'
 import {Icon, dateToString} from '../components/Common'
+import constants from '../components/Constants'
 import SubCard from '../components/SubCard'
 import * as Notifications from 'expo-notifications'
 
@@ -13,8 +15,9 @@ import * as Notifications from 'expo-notifications'
     name: String,
     costPerMonth: Number,
     startDay: Date,
+    duration: String
     endDay: Date,
-        //TODO: [X] CHANGE TO DATE AND CONVERT TO STRING IN SUBCARD.JS
+        //TODO: [] Remove endDay, and calculate from startDay + duration
 }
 
 */
@@ -59,6 +62,9 @@ export default function Home() {
 
     const [startDateDialog, setSDVisible] = useState(false)
     const [endDateDialog, setEDVisible] = useState(false)
+
+    const [pickerVisibile, setPickerVisible] = useState(false)
+
 
 
     function hideDialog() {
@@ -165,6 +171,11 @@ export default function Home() {
         }) 
     }
 
+    function onConfirm(selections) {
+        setPickerVisible(false)
+        console.log(selections)
+    }
+
 
 
 
@@ -221,6 +232,15 @@ export default function Home() {
 
                 {endDateDialog && <DateTimePicker minimumDate={new Date()} mode="date" value={endDate} onChange={(_, d) => setEndDate(d)}/>}
 
+
+                <Button uppercase={false} onPress={() => setPickerVisible(true)}>Subscription duration</Button>
+                <SegmentedPicker
+                    visible={pickerVisibile}
+                    onConfirm={onConfirm}
+                    onCancel={onConfirm}
+                    confirmText="Finished"
+                    options={constants.PICKER_OPTIONS}    
+                />
 
                 <View style={{flexDirection: 'row', justifyContent: "center"}}>
                     <Button style={styles.cancelButton} mode="contained" onPress={hideDialog}>Cancel</Button>

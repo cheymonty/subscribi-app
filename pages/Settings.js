@@ -4,6 +4,7 @@ import {Appbar, Divider,Switch, List,Menu,Button} from 'react-native-paper'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useEffect } from 'react';
 import {timeToString} from '../components/Common'
+import constants from '../components/Constants'
 
 // state : {
 //     timeOfNotification: Number
@@ -14,9 +15,6 @@ import {timeToString} from '../components/Common'
 //TODO: [X] remove displayTime and create a function that changes Number to displayTime
 
 export default function Settings() {
-    const DEFAULT_TIME = 12
-
-
     const [state, setState] = React.useState({
         darkMode: false,
         allowReminders: true
@@ -31,14 +29,14 @@ export default function Settings() {
 
             if (!timeOfNotification) {
                 try {
-                    await AsyncStorage.setItem('@timeOfNotification', JSON.stringify(DEFAULT_TIME))
+                    await AsyncStorage.setItem('@timeOfNotification', JSON.stringify(constants.DEFAULT_TIME))
                 } catch(e) {
                 }
             }
 
     
             setState({
-                timeOfNotification: timeOfNotification? JSON.parse(timeOfNotification): DEFAULT_TIME
+                timeOfNotification: timeOfNotification? JSON.parse(timeOfNotification): constants.DEFAULT_TIME
             })
   
         }

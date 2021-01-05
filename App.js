@@ -3,14 +3,15 @@ import React, {useState, useEffect, useRef} from 'react'
 import {Platform} from 'react-native'
 import Home from './pages/Home'
 import Settings from './pages/Settings'
-import Add from './pages/Add'
 import Statistics from './pages/Statistics'
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Provider as PaperProvider } from 'react-native-paper'
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs'
 import { NavigationContainer } from '@react-navigation/native'
 import { AntDesign } from '@expo/vector-icons'
 import * as Notifications from 'expo-notifications'
 import * as Permissions from 'expo-permissions'
+import constants from './components/Constants'
 
 const Tab = createBottomTabNavigator()
 
@@ -30,20 +31,32 @@ export default function App() {
   const responseListener = useRef()
 
   useEffect(() => {
-    registerForPushNotificationsAsync().then(token => setExpoPushToken(token));
+    const setup = async() => {
+      registerForPushNotificationsAsync().then(token => setExpoPushToken(token));
 
-    notificationListener.current = Notifications.addNotificationReceivedListener(notification => {
-      setNotification(notification);
-    });
+      notificationListener.current = Notifications.addNotificationReceivedListener(notification => {
+        setNotification(notification);
+      })
 
-    responseListener.current = Notifications.addNotificationResponseReceivedListener(response => {
-      console.log(response);
-    });
+      responseListener.current = Notifications.addNotificationResponseReceivedListener(response => {
+        console.log(response)
+      })
+
+    let timeOfNotification = await AsyncStorage.getItem("@timeOfNotification")
+    if (!timeOfNotification) {
+      try {
+        await AsyncStorage.setItem('@timeOfNotification', JSON.stringify(constants.DEFAULT_TIME))
+      } catch(e) {
+      }
+    }
+
 
     return () => {
       Notifications.removeNotificationSubscription(notificationListener);
       Notifications.removeNotificationSubscription(responseListener);
-    };
+    } 
+  }
+  setup()  
   }, [])
 
 
