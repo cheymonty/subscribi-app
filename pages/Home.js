@@ -5,6 +5,7 @@ import DateTimePicker from '@react-native-community/datetimepicker'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {Icon, dateToString} from '../components/Common'
 import SubCard from '../components/SubCard'
+import * as Notifications from 'expo-notifications'
 
 /*Subscriptions object
 {
@@ -21,14 +22,18 @@ import SubCard from '../components/SubCard'
 // TODO:
 //     [] Dark mode makes things white, maybe explicitly give things the black/gray color
 //     [] Put subscriptions in AsyncStorage
-
+let timeOfNotification;
 export default function Home() {
+    
 
     //async has access to anything no matter where it was added
     useEffect(() => {
         const check = async() => {
-            const timeOfNotification = await AsyncStorage.getItem('@timeOfNotification')
-            console.log("noti: " + timeOfNotification)
+            //TODO: Needs to be cleaned up
+            timeOfNotification = await AsyncStorage.getItem('@timeOfNotification')
+            
+            timeOfNotification = JSON.parse(timeOfNotification)
+            
         }
         check()
     }, [])
@@ -76,7 +81,7 @@ export default function Home() {
     }
 
 
-    function addSub() {
+    async function addSub() {
         hideDialog()
         setEDVisible(false)
 
@@ -99,6 +104,28 @@ export default function Home() {
         setState({
             subscriptions: s
         })
+        
+        let newDate = endDate
+        
+        // console.log("noti: " + typeof timeOfNotification)
+        newDate.setHours(timeOfNotification)
+        newDate.setMinutes(0)
+        newDate.setSeconds(0)
+        // console.log(newDate.getHours())
+    
+        await Notifications.scheduleNotificationAsync({
+            content: {
+                title: `${name} is recurring soon!`,
+                body: `Your ${name} subscription is about to recur`,
+                data: { data: 'goes here' },
+                },
+            trigger: newDate,
+        })
+
+        console.log('Notification scheduled for: ' + newDate);
+        
+        //TODO: Just for testing
+        Notifications.cancelAllScheduledNotificationsAsync()
 
         setStartDate(new Date())
         setEndDate(new Date())
@@ -192,7 +219,7 @@ export default function Home() {
                 <Headline>Subscription End</Headline>
                 <Button mode="outlined" uppercase={false} onPress={showED} style={styles.endDate}>End Date: {dateToString(endDate)}</Button>
 
-                {endDateDialog && <DateTimePicker mode="date" value={endDate} onChange={(_, d) => setEndDate(d)}/>}
+                {endDateDialog && <DateTimePicker minimumDate={new Date()} mode="date" value={endDate} onChange={(_, d) => setEndDate(d)}/>}
 
 
                 <View style={{flexDirection: 'row', justifyContent: "center"}}>
