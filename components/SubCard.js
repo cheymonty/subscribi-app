@@ -5,7 +5,6 @@ import {getColor, dateToString} from './Common'
 import ActionSheet from 'react-native-actions-sheet'
 
 //TODO:
-// [] implement swipe to delete
 // [] implement press to edit
 
 
