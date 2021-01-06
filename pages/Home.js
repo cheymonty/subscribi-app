@@ -48,10 +48,10 @@ export default function Home() {
     const [state, setState] = useState({
         subscriptions: []
     })
-    const [visible, setVisible] = useState(false);
+    const [modalVisible, setModalVisible] = useState(false);
     
 
-    const showDialog = () => setVisible(true)
+    const showDialog = () => setModalVisible(true)
 
 
     const [name, setName] = useState('')
@@ -63,19 +63,22 @@ export default function Home() {
     const [startDateDialog, setSDVisible] = useState(false)
     const [endDateDialog, setEDVisible] = useState(false)
 
-    const [pickerVisibile, setPickerVisible] = useState(false)
+    const [pickerVisible, setPickerVisible] = useState(false)
+    const [duration, setDuration] = useState("1 days")
 
 
 
     function hideDialog() {
-        setVisible(false)
+        setModalVisible(false)
         setSDVisible(false)
         setEDVisible(false)
         setStartDate(new Date())
         setEndDate(new Date())
         setCostPerMonth(0)
         setName('')
+        setDuration("")
     }
+
 
     function showSD() {
         setSDVisible(true)
@@ -93,15 +96,22 @@ export default function Home() {
 
         if (endDate === undefined || startDate === undefined)
             return
-            
-    
+     
         let key = `${state.subscriptions.length}-${name}`
+
+        //TODO: if duration button isnt clicked at all, duration ends up being "" and
+        //setDuration doesnt fire in time
+        if (duration.length === 0) {
+            console.log("got here")
+            setDuration("1 days")
+        }
 
         let newSub = {
             key: key, 
             name: name, 
             costPerMonth: costPerMonth, 
             startDay: startDate, 
+            duration: duration,
             endDay: endDate
         }
 
@@ -111,30 +121,36 @@ export default function Home() {
             subscriptions: s
         })
         
-        let newDate = endDate
+        //safeguard for setting end date to be the current date and
+        //causing errors with making notifications
+        if (endDate.toDateString() !== new Date().toDateString()) { 
+            let newDate = endDate
+            
+            // console.log("noti: " + typeof timeOfNotification)
+            newDate.setHours(timeOfNotification)
+            newDate.setMinutes(0)
+            newDate.setSeconds(0)
+            // console.log(newDate.getHours())
         
-        // console.log("noti: " + typeof timeOfNotification)
-        newDate.setHours(timeOfNotification)
-        newDate.setMinutes(0)
-        newDate.setSeconds(0)
-        // console.log(newDate.getHours())
-    
-        await Notifications.scheduleNotificationAsync({
-            content: {
-                title: `${name} is recurring soon!`,
-                body: `Your ${name} subscription is about to recur`,
-                data: { data: 'goes here' },
-                },
-            trigger: newDate,
-        })
+            await Notifications.scheduleNotificationAsync({
+                content: {
+                    title: `${name} is recurring soon!`,
+                    body: `Your ${name} subscription is about to recur`,
+                    data: { data: 'goes here' },
+                    },
+                trigger: newDate,
+            })
 
-        console.log('Notification scheduled for: ' + newDate);
-        
-        //TODO: Just for testing
-        Notifications.cancelAllScheduledNotificationsAsync()
+            console.log('Notification scheduled for: ' + newDate);
+            
+            //TODO: Just for testing
+            Notifications.cancelAllScheduledNotificationsAsync()
+        }
 
         setStartDate(new Date())
         setEndDate(new Date())
+        setDuration("")
+        console.log(newSub)
     }
 
 
@@ -171,14 +187,6 @@ export default function Home() {
         }) 
     }
 
-    function onConfirm(selections) {
-        setPickerVisible(false)
-        console.log(selections)
-    }
-
-
-
-
     return (
       <View style={styles.container}>
            <Appbar.Header style={{backgroundColor: "#4ade80"}}>
@@ -190,16 +198,17 @@ export default function Home() {
             {/* <Title style={styles.header}>Home</Title> */}
             
 
-        <Modal animationType="slide" visible={visible} onRequestClose={hideDialog} presentationStyle="formSheet">
-            <ScrollView style={{backgroundColor: "#f0fff1", height:"100%"}}>
+        <Modal animationType="slide" visible={modalVisible} onRequestClose={hideDialog} presentationStyle="formSheet">
+            <ScrollView style={{backgroundColor: "rgb(242,242,242)", height:"100%"}}>
 
                 <View style={{flexDirection: 'row'}}>
                     <IconButton icon="close" onPress={hideDialog}/>
                     <Title style={styles.modalTitle}>New Subscription</Title>
                 </View>
                 
+                <Paragraph style={{fontWeight: "bold", marginLeft: "10%"}}>Subscription Name</Paragraph>
                 <TextInput 
-                    style={styles.textInput} 
+                    style={styles.nameInput} 
                     maxLength={30}
                     placeholder="Subscription Name" 
                     onChangeText={name => setName(name)}
@@ -207,21 +216,24 @@ export default function Home() {
                     underlineColorAndroid="transparent"
                 />
 
-
+               
+                <Paragraph style={{fontWeight: "bold", marginLeft: "10%"}}>Price ($)</Paragraph>
                 <TextInput 
-                    style={styles.textInput} 
+                    style={styles.costInput} 
                     keyboardType="numeric"
                     maxLength={6}
-                    placeholder="Cost per month" 
+                    placeholder="Price" 
                     onChangeText={price => setCostPerMonth(Number(price))}
                     onSubmitEditing={(e) => setCostPerMonth(Number(e.nativeEvent.text))} 
                     underlineColorAndroid="transparent"
                 />
+               
+               
                 
                 {/* <DateTimePicker mode="date"value={startDate} onChange={(_, d) => setStartDate(d)}/>
                 <DateTimePicker mode="date"  value={endDate} onChange={(_, d) => setEndDate(d)}/> */}
 
-                <Headline>Subscription Start</Headline>
+                <Paragraph style={{fontWeight: "bold"}}>Subscription Start</Paragraph>
                 <Button mode="outlined" uppercase={false} onPress={showSD} style={styles.startDate}>Start Date: {dateToString(startDate)}</Button>
                 
                 {startDateDialog && <DateTimePicker mode="date" value={startDate} onChange={(_, d) => setStartDate(d)}/>}
@@ -230,22 +242,29 @@ export default function Home() {
                 <Headline>Subscription End</Headline>
                 <Button mode="outlined" uppercase={false} onPress={showED} style={styles.endDate}>End Date: {dateToString(endDate)}</Button>
 
-                {endDateDialog && <DateTimePicker minimumDate={new Date()} mode="date" value={endDate} onChange={(_, d) => setEndDate(d)}/>}
+                {endDateDialog && <DateTimePicker minimumDate={endDate} mode="date" value={endDate} onChange={(_, d) => setEndDate(d)}/>}
 
 
-                <Button uppercase={false} onPress={() => setPickerVisible(true)}>Subscription duration</Button>
+                <Button uppercase={false} color="black" onPress={() => setPickerVisible(true)}>Select duration: {duration}</Button>
                 <SegmentedPicker
-                    visible={pickerVisibile}
-                    onConfirm={onConfirm}
-                    onCancel={onConfirm}
+                    visible={pickerVisible}
+                    onConfirm={selections => {
+                        setDuration(`${selections.col_1} ${selections.col_2}`)
+                        setPickerVisible(false)
+                    }}
+                    onCancel={selections => {
+                        setDuration(`${selections.col_1} ${selections.col_2}`)
+                        setPickerVisible(false)
+                    }}
                     confirmText="Finished"
                     options={constants.PICKER_OPTIONS}    
                 />
 
                 <View style={{flexDirection: 'row', justifyContent: "center"}}>
                     <Button style={styles.cancelButton} mode="contained" onPress={hideDialog}>Cancel</Button>
-                    <Button style={styles.saveButton} disabled={name.length > 0 ? false : true} mode="contained" onPress={addSub}>Save</Button>
+                    
                 </View>
+                <Button style={styles.doneButton} disabled={name.length > 0 ? false : true} mode="contained" onPress={addSub}>Done</Button>
             </ScrollView>
         </Modal>
 
@@ -293,8 +312,6 @@ export default function Home() {
             <Headline style={{textAlign: "center"}}>Tap + to add a subscription</Headline>
         }
 
-    
-      
         <FlatList 
         data={state.subscriptions}
         renderItem={({item}) => {
@@ -330,20 +347,34 @@ const styles = StyleSheet.create({
      
     },
  
-    textInput: {
+    nameInput: {
         // fontSize: 20,
         // left: 20,
         // marginTop: 15,
-        backgroundColor: "#ccd5ff",
+        backgroundColor: "white",
+        textAlign: "center",
+        height: 50,
+        fontSize: 15,
+        borderWidth: 2,
+        borderColor: "#42EBDF",
+        borderRadius: 10,
+        width: "80%",
+        marginLeft: "10%",
+        marginBottom: "8%"
+        
+    },
+
+    costInput: {
+        backgroundColor: "white",
         textAlign: "center",
         height: 50,
         fontSize: 15,
         borderWidth: 2,
         borderColor: "#ccd5ff",
-        borderRadius: 20,
-        width: "80%",
+        borderRadius: 10,
+        width: "20%",
         marginLeft: "10%",
-        
+        marginBottom: "8%"
     },
     
     startDate: {
@@ -385,13 +416,14 @@ const styles = StyleSheet.create({
         marginRight: "15%"
     },
 
-    saveButton: {
-        width: "35%", 
+    doneButton: {
+        width: "80%", 
+        marginLeft: "10%",
         backgroundColor: "#4ade80",
         // marginLeft: "25%",
         borderWidth: 2,
         borderColor: "#4ade80",
-        borderRadius: 20,
+        borderRadius: 10,      
     },
   });
 

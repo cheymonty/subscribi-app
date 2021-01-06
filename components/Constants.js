@@ -4,7 +4,7 @@ const constants = {
     DEFAULT_TIME: 12,
     PICKER_OPTIONS:[
         {
-            key: "dateCount",
+            key: "col_1",
             items: [
                 {label: "1", value: "1"},
                 {label: "2", value: "2"},
@@ -29,7 +29,7 @@ const constants = {
             ]  
         },
         {
-            key: "dateInterval",
+            key: "col_2",
             items: [
                 {label: "days", value: "days"},
                 {label: "weeks", value: "weeks"},
