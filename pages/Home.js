@@ -13,7 +13,7 @@ import * as Notifications from 'expo-notifications'
 {
     key: String,
     name: String,
-    costPerMonth: Number,
+    cost: Number,
     startDay: Date,
     duration: String
     endDay: Date,
@@ -55,7 +55,7 @@ export default function Home() {
 
 
     const [name, setName] = useState('')
-    const [costPerMonth, setCostPerMonth] = useState(0)
+    const [cost, setCost] = useState(0)
     const [startDate, setStartDate] = useState(new Date())
     const [endDate, setEndDate] = useState(new Date())
 
@@ -74,7 +74,7 @@ export default function Home() {
         setEDVisible(false)
         setStartDate(new Date())
         setEndDate(new Date())
-        setCostPerMonth(0)
+        setCost(0)
         setName('')
         setDuration("")
     }
@@ -109,7 +109,7 @@ export default function Home() {
         let newSub = {
             key: key, 
             name: name, 
-            costPerMonth: costPerMonth, 
+            cost: cost, 
             startDay: startDate, 
             duration: duration,
             endDay: endDate
@@ -130,8 +130,7 @@ export default function Home() {
             newDate.setHours(timeOfNotification)
             newDate.setMinutes(0)
             newDate.setSeconds(0)
-            // console.log(newDate.getHours())
-        
+           
             await Notifications.scheduleNotificationAsync({
                 content: {
                     title: `${name} is recurring soon!`,
@@ -202,8 +201,8 @@ export default function Home() {
             <ScrollView style={{backgroundColor: "rgb(242,242,242)", height:"100%"}}>
 
                 <View style={{flexDirection: 'row'}}>
-                    <IconButton icon="close" onPress={hideDialog}/>
                     <Title style={styles.modalTitle}>New Subscription</Title>
+                    <IconButton style={{textAlign: "right"}} icon="close" onPress={hideDialog}/>
                 </View>
                 
                 <Paragraph style={{fontWeight: "bold", marginLeft: "10%"}}>Subscription Name</Paragraph>
@@ -223,8 +222,8 @@ export default function Home() {
                     keyboardType="numeric"
                     maxLength={6}
                     placeholder="Price" 
-                    onChangeText={price => setCostPerMonth(Number(price))}
-                    onSubmitEditing={(e) => setCostPerMonth(Number(e.nativeEvent.text))} 
+                    onChangeText={price => setCost(Number(price))}
+                    onSubmitEditing={(e) => setCost(Number(e.nativeEvent.text))} 
                     underlineColorAndroid="transparent"
                 />
                
@@ -245,7 +244,7 @@ export default function Home() {
                 {endDateDialog && <DateTimePicker minimumDate={endDate} mode="date" value={endDate} onChange={(_, d) => setEndDate(d)}/>}
 
 
-                <Button uppercase={false} color="black" onPress={() => setPickerVisible(true)}>Select duration: {duration}</Button>
+                <Button uppercase={false} icon="arrow-down" contentStyle={{flexDirection: "row-reverse"}} color="black" onPress={() => setPickerVisible(true)}>Select duration: {duration}</Button>
                 <SegmentedPicker
                     visible={pickerVisible}
                     onConfirm={selections => {
@@ -256,7 +255,7 @@ export default function Home() {
                         setDuration(`${selections.col_1} ${selections.col_2}`)
                         setPickerVisible(false)
                     }}
-                    confirmText="Finished"
+                    confirmText="Done"
                     options={constants.PICKER_OPTIONS}    
                 />
 
@@ -320,7 +319,7 @@ export default function Home() {
                     editPress={_ => editSub(item.key)} 
                     deletePress={_ => deleteSub(item.key)} 
                     name={item.name} 
-                    costPerMonth={item.costPerMonth}
+                    cost={item.cost}
                     endDay={item.endDay}
                 />
             )
@@ -344,7 +343,7 @@ const styles = StyleSheet.create({
         // textAlign: "center",
         color: "#4ade80",
         marginTop: 15,
-     
+        marginLeft: "25%",     
     },
  
     nameInput: {

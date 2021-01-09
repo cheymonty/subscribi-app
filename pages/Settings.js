@@ -99,7 +99,7 @@ export default function Settings() {
                     <Menu
                         visible={timeMenu}
                         onDismiss={closeTimeMenu}
-                        anchor={<Button onPress={() => setTimeMenu(!timeMenu)}>{timeToString(state.timeOfNotification)}</Button>}
+                        anchor={<Button icon="arrow-down" onPress={() => setTimeMenu(!timeMenu)} contentStyle={{flexDirection: "row-reverse"}}>{timeToString(state.timeOfNotification)}</Button>}
                     >
                         <Menu.Item onPress={() => {setTime(6)}} title="6:00 AM"/>
                         <Menu.Item onPress={() => {setTime(9)}} title="9:00 AM"/>
@@ -107,7 +107,8 @@ export default function Settings() {
                         <Menu.Item onPress={() => {setTime(12)}} title="12:00 PM"/>
                         <Menu.Item onPress={() => {setTime(15)}} title="3:00 PM"/>
                         <Menu.Item onPress={() => {setTime(18)}} title="6:00 PM"/>
-                    </Menu>}
+                    </Menu>        
+                }
             />
     
 
