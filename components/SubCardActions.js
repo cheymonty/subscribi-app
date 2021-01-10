@@ -7,7 +7,7 @@ import {Title, List, Button} from 'react-native-paper'
 //has to be a const to use forwarded ref correctly
 export const SubCardActions = React.forwardRef(({name, deletePress}, ref) => {
     return (
-        <ActionSheet ref={ref} bounceOnOpen>
+        <ActionSheet ref={ref} bounceOnOpen gestureEnabled>
              
             <Title style={styles.sheetTitle}>{name}</Title>
 

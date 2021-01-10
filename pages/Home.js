@@ -6,6 +6,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import SegmentedPicker from 'react-native-segmented-picker'
 import {Icon, dateToString} from '../components/Common'
 import constants from '../components/Constants'
+import {AddSub} from '../components/AddSub'
 import SubCard from '../components/SubCard'
 import * as Notifications from 'expo-notifications'
 
@@ -51,7 +52,7 @@ export default function Home() {
     const [modalVisible, setModalVisible] = useState(false);
     
 
-    const showDialog = () => setModalVisible(true)
+    const showModal = () => setModalVisible(true)
 
 
     const [name, setName] = useState('')
@@ -65,7 +66,6 @@ export default function Home() {
 
     const [pickerVisible, setPickerVisible] = useState(false)
     const [duration, setDuration] = useState("1 days")
-
 
 
     function hideDialog() {
@@ -191,19 +191,24 @@ export default function Home() {
            <Appbar.Header style={{backgroundColor: "#4ade80"}}>
                 <Appbar.Content title="Home" titleStyle={{fontSize: 25, color:"white"}}/>
                 <Appbar.Action icon="sort" color="white" onPress={sortSubs} accessibilityLabel="Sort subscriptions"/>
-                <Appbar.Action icon="plus" color="white" onPress={showDialog}  accessibilityLabel="Add a new subscription"/>
+                <Appbar.Action icon="plus" color="white" onPress={showModal}  accessibilityLabel="Add a new subscription"/>
             </Appbar.Header>
             
             {/* <Title style={styles.header}>Home</Title> */}
             
+        {/* {modalVisible && <AddSub visible={modalVisible}/>} */}
+        {/* {modalVisible? <AddSub visible={modalVisible}/>: null} */}
 
         <Modal animationType="slide" visible={modalVisible} onRequestClose={hideDialog} presentationStyle="formSheet">
-            <ScrollView style={{backgroundColor: "rgb(242,242,242)", height:"100%"}}>
+            <View style={{backgroundColor: "rgb(242,242,242)", height:"100%"}}>
 
                 <View style={{flexDirection: 'row'}}>
                     <Title style={styles.modalTitle}>New Subscription</Title>
                     <IconButton style={{textAlign: "right"}} icon="close" onPress={hideDialog}/>
                 </View>
+
+                {/* <AddSub/>
+                <Button style={styles.cancelButton} mode="contained" onPress={hideDialog}>Cancel</Button> */}
                 
                 <Paragraph style={{fontWeight: "bold", marginLeft: "10%"}}>Subscription Name</Paragraph>
                 <TextInput 
@@ -228,15 +233,10 @@ export default function Home() {
                 />
                
                
-                
-                {/* <DateTimePicker mode="date"value={startDate} onChange={(_, d) => setStartDate(d)}/>
-                <DateTimePicker mode="date"  value={endDate} onChange={(_, d) => setEndDate(d)}/> */}
-
                 <Paragraph style={{fontWeight: "bold"}}>Subscription Start</Paragraph>
                 <Button mode="outlined" uppercase={false} onPress={showSD} style={styles.startDate}>Start Date: {dateToString(startDate)}</Button>
                 
                 {startDateDialog && <DateTimePicker mode="date" value={startDate} onChange={(_, d) => setStartDate(d)}/>}
-                {/* {startDateDialog? <DateTimePicker mode="date"value={startDate} onChange={(_, d) => setStartDate(d)}/>: null} */}
 
                 <Headline>Subscription End</Headline>
                 <Button mode="outlined" uppercase={false} onPress={showED} style={styles.endDate}>End Date: {dateToString(endDate)}</Button>
@@ -264,7 +264,7 @@ export default function Home() {
                     
                 </View>
                 <Button style={styles.doneButton} disabled={name.length > 0 ? false : true} mode="contained" onPress={addSub}>Done</Button>
-            </ScrollView>
+            </View>
         </Modal>
 
 
@@ -326,7 +326,7 @@ export default function Home() {
         }}
         keyExtractor={item => item.key}/>
 
-        <FAB style={styles.fab} icon="plus" onPress={showDialog}/>
+        <FAB style={styles.fab} icon="plus" onPress={showModal}/>
       </View>
     );
 }
