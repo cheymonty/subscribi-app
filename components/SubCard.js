@@ -1,7 +1,7 @@
 import React, {createRef} from 'react';
 import {StyleSheet, View, TouchableOpacity, TouchableHighlight} from 'react-native';
 import {Title, Paragraph, Subheading} from 'react-native-paper';
-import {getColor, dateToString} from './Common'
+import {getColor, dateToString} from '../utils/helpers'
 import {SubCardActions} from './SubCardActions'
 
 //TODO:

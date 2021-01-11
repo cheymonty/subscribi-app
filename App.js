@@ -11,7 +11,7 @@ import { NavigationContainer } from '@react-navigation/native'
 import { AntDesign } from '@expo/vector-icons'
 import * as Notifications from 'expo-notifications'
 import * as Permissions from 'expo-permissions'
-import constants from './components/Constants'
+import constants from './utils/constants'
 
 const Tab = createBottomTabNavigator()
 

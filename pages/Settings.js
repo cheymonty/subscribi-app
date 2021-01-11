@@ -1,10 +1,9 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import { StyleSheet, View} from 'react-native'
 import {Appbar, Divider,Switch, List,Menu,Button} from 'react-native-paper'
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useEffect } from 'react';
-import {timeToString} from '../components/Common'
-import constants from '../components/Constants'
+import {timeToString} from '../utils/helpers'
+import constants from '../utils/constants'
 
 // state : {
 //     timeOfNotification: Number
