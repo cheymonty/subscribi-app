@@ -1,9 +1,11 @@
-import React, {useEffect} from 'react'
+import React, {useEffect, useContext} from 'react'
 import { StyleSheet, View} from 'react-native'
 import {Appbar, Divider,Switch, List,Menu,Button} from 'react-native-paper'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {timeToString} from '../utils/helpers'
 import constants from '../utils/constants'
+
+import Context from '../context/Context'
 
 // state : {
 //     timeOfNotification: Number
@@ -66,12 +68,15 @@ export default function Settings() {
         closeTimeMenu()  
     }
 
+    const context = useContext(Context)
+    
+
     return (
         <View style={styles.container}>
             <Appbar.Header style={{backgroundColor: "#4ade80"}}>
                 <Appbar.Content titleStyle={{fontSize: 25, color:"white"}} title="Settings"/>
             </Appbar.Header>
-
+            <Button onPress={_ => console.log(context.subscriptions)}>YUH</Button>
             <List.Subheader>General</List.Subheader>
 
             <List.Item

@@ -13,6 +13,8 @@ import * as Notifications from 'expo-notifications'
 import * as Permissions from 'expo-permissions'
 import constants from './utils/constants'
 
+import Context from './context/Context'
+
 const Tab = createBottomTabNavigator()
 
 Notifications.setNotificationHandler({
@@ -60,7 +62,28 @@ export default function App() {
   }, [])
 
 
+  //for global state
+  const [subscriptions, setSubs] = useState([])
+  const addSub = (sub) => {
+    let s = subscriptions
+    s.unshift(sub)
+    setSubs(s)
+  }
+
+  const [darkMode, setDarkMode] = useState(false)
+  const toggleDarkMode = () => {
+    setDarkMode(!darkMode)
+  }
+
+  const global = {
+    subscriptions: subscriptions,
+    addSub,
+    darkMode: darkMode,
+    toggleDarkMode
+  }
+
   return (
+    <Context.Provider value={global}>
     <NavigationContainer>
     <PaperProvider>
       <Tab.Navigator
@@ -103,6 +126,7 @@ export default function App() {
       </Tab.Navigator>
     </PaperProvider>
     </NavigationContainer>
+    </Context.Provider>
    
   );
 }

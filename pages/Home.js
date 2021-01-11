@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, useContext} from 'react'
 import { StyleSheet, ScrollView, TextInput, View, FlatList, Modal, LayoutAnimation, UIManager, Platform} from 'react-native'
 import { Title, Text, FAB, Appbar, IconButton, Button, Headline, Portal, Dialog, Paragraph} from 'react-native-paper'
 import DateTimePicker from '@react-native-community/datetimepicker'
@@ -9,6 +9,8 @@ import constants from '../utils/constants'
 import {AddSub} from '../components/AddSub'
 import SubCard from '../components/SubCard'
 import * as Notifications from 'expo-notifications'
+
+import Context from '../context/Context'
 
 /*Subscriptions object
 {
@@ -66,6 +68,10 @@ export default function Home() {
 
     const [pickerVisible, setPickerVisible] = useState(false)
     const [duration, setDuration] = useState("1 days")
+
+    const context = useContext(Context)
+    // console.log(context.subscriptions)
+   
 
 
     function hideDialog() {
@@ -207,10 +213,10 @@ export default function Home() {
                     <IconButton style={{textAlign: "right"}} icon="close" onPress={hideDialog}/>
                 </View>
 
-                {/* <AddSub/>
-                <Button style={styles.cancelButton} mode="contained" onPress={hideDialog}>Cancel</Button> */}
+                <AddSub/>
+                <Button style={styles.cancelButton} mode="contained" onPress={hideDialog}>Cancel</Button>
                 
-                <Paragraph style={{fontWeight: "bold", marginLeft: "10%"}}>Subscription Name</Paragraph>
+                {/* <Paragraph style={{fontWeight: "bold", marginLeft: "10%"}}>Subscription Name</Paragraph>
                 <TextInput 
                     style={styles.nameInput} 
                     maxLength={30}
@@ -263,7 +269,7 @@ export default function Home() {
                     <Button style={styles.cancelButton} mode="contained" onPress={hideDialog}>Cancel</Button>
                     
                 </View>
-                <Button style={styles.doneButton} disabled={name.length > 0 ? false : true} mode="contained" onPress={addSub}>Done</Button>
+                <Button style={styles.doneButton} disabled={name.length > 0 ? false : true} mode="contained" onPress={addSub}>Done</Button> */}
             </View>
         </Modal>
 

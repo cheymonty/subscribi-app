@@ -1,12 +1,13 @@
-import React, {useState} from 'react'
+import React, {useState, useContext} from 'react'
 import { StyleSheet, TextInput, View, LayoutAnimation} from 'react-native'
-import { Title, Text, IconButton, Button, Headline, Paragraph} from 'react-native-paper'
+import { Button, Paragraph} from 'react-native-paper'
 import DateTimePicker from '@react-native-community/datetimepicker'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import SegmentedPicker from 'react-native-segmented-picker'
 import constants from '../utils/constants'
 import {dateToString} from '../utils/helpers'
 
+import Context from '../context/Context'
 
 
 export const AddSub = ({}) => {
@@ -17,8 +18,21 @@ export const AddSub = ({}) => {
     const [pickerVisible, setPickerVisible] = useState(false)
     const [duration, setDuration] = useState("1 days")
 
+    const context = useContext(Context)
+
     function addSub() {
         console.log(name)
+        let key = `${context.subscriptions.length}-${name}`
+        let newSub = {
+            name: name,
+            key: key,
+            cost: cost,
+            startDay: startDate, 
+            duration: duration,
+
+        }
+        context.addSub(newSub)
+        console.log(context.subscriptions)
     }
 
     return (
