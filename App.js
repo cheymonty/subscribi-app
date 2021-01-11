@@ -1,6 +1,6 @@
 import 'react-native-gesture-handler'
 import React, {useState, useEffect, useRef} from 'react'
-import {Platform} from 'react-native'
+import {Platform, LayoutAnimation, UIManager} from 'react-native'
 import Home from './pages/Home'
 import Settings from './pages/Settings'
 import Statistics from './pages/Statistics'
@@ -61,13 +61,35 @@ export default function App() {
   setup()  
   }, [])
 
+  if (Platform.OS === "android" && UIManager.setLayoutAnimationEnabledExperimental)
+    UIManager.setLayoutAnimationEnabledExperimental(true)
+
 
   //for global state
   const [subscriptions, setSubs] = useState([])
   const addSub = (sub) => {
-    let s = subscriptions
+    //TODO: add newSub to asyncStorage
+    let s = [...subscriptions]
     s.unshift(sub)
     setSubs(s)
+  }
+
+  const deleteSub = (key) => {
+    let s = [...subscriptions]
+    let prev = s.findIndex(sub => sub.key === key)
+    s.splice(prev, 1)
+    LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut)
+    setSubs(s)
+  }
+
+  //TODO: sorts by cost currently, should change to something else
+  const sortSubs = () => {
+    let s = [...subscriptions]
+    if (s.length > 1) { //so there's no unneeded calculations done
+      s.sort((a, b) => a.endDay - b.endDay)
+      LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut)
+      setSubs(s)
+    }
   }
 
   const [darkMode, setDarkMode] = useState(false)
@@ -76,8 +98,11 @@ export default function App() {
   }
 
   const global = {
+    //TODO: setup asyncStorge get
     subscriptions: subscriptions,
     addSub,
+    deleteSub,
+    sortSubs,
     darkMode: darkMode,
     toggleDarkMode
   }
@@ -130,17 +155,6 @@ export default function App() {
    
   );
 }
-
-// async function schedulePushNotification() {
-//   await Notifications.scheduleNotificationAsync({
-//     content: {
-//       title: "You've got mail! 📬",
-//       body: 'Here is the notification body',
-//       data: { data: 'goes here' },
-//     },
-//     trigger: { seconds: 2 },
-//   });
-// }
 
 async function registerForPushNotificationsAsync() {
   let token;

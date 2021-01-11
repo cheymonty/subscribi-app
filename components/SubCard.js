@@ -9,7 +9,7 @@ import {SubCardActions} from './SubCardActions'
 
 
 //has to be a function for correct createRef use
-export default function SubCard({editPress, deletePress, name, cost, endDay}) {
+export default function SubCard({editPress, id, name, cost, endDay}) {
     const actionSheetRef = createRef()
 
     return (
@@ -25,7 +25,7 @@ export default function SubCard({editPress, deletePress, name, cost, endDay}) {
                 
                 <View style={{flexDirection: "row"}}>
                     <Subheading style={styles.cost}>{cost === 0 ? "Free" : `$${cost}`}</Subheading>
-                    <Subheading style={styles.date}>{dateToString(endDay)}</Subheading>      
+                    <Subheading style={styles.date}>{dateToString(endDay)}</Subheading>
                 </View>
                 {/* <MaterialCommunityIcons style={styles.edit} onPress={editPress} name="pencil" size={24} color="#fd4e6b"/> */}
             </TouchableOpacity>
@@ -33,7 +33,7 @@ export default function SubCard({editPress, deletePress, name, cost, endDay}) {
             <SubCardActions
                 ref={actionSheetRef}
                 name={name}
-                deletePress={deletePress}
+                id={id}
             />
         </View>
     )

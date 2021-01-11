@@ -1,11 +1,11 @@
 import React, {useState, useContext} from 'react'
-import { StyleSheet, TextInput, View, LayoutAnimation} from 'react-native'
+import { StyleSheet, TextInput, View, Keyboard} from 'react-native'
 import { Button, Paragraph} from 'react-native-paper'
 import DateTimePicker from '@react-native-community/datetimepicker'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import SegmentedPicker from 'react-native-segmented-picker'
 import constants from '../utils/constants'
-import {dateToString} from '../utils/helpers'
+import {dateToString, getEndDate} from '../utils/helpers'
 
 import Context from '../context/Context'
 
@@ -21,18 +21,33 @@ export const AddSub = ({}) => {
     const context = useContext(Context)
 
     function addSub() {
-        console.log(name)
+        //structuring newSub
+        //TODO: set up notifications
+
+        //TODO: if duration button isnt clicked at all, duration ends up being "" and
+        //setDuration doesnt fire in time
+        // if (duration.length === 0) {
+        //     console.log("got here")
+        //     setDuration("1 days")
+        // }
+
+        let endDate = getEndDate(startDate, duration)
         let key = `${context.subscriptions.length}-${name}`
+
         let newSub = {
             name: name,
             key: key,
             cost: cost,
             startDay: startDate, 
+            endDay: endDate,
             duration: duration,
-
         }
         context.addSub(newSub)
-        console.log(context.subscriptions)
+    }
+
+    function startButton() {
+        setStartDateDialog(!startDateDialog)
+        Keyboard.dismiss()
     }
 
     return (
@@ -59,7 +74,7 @@ export const AddSub = ({}) => {
             />
 
             <Paragraph style={{fontWeight: "bold"}}>Subscription Start</Paragraph>
-            <Button mode="outlined" uppercase={false} onPress={_ => setStartDateDialog(true)} style={styles.startDate}>Start Date: {dateToString(startDate)}</Button>
+            <Button mode="outlined" uppercase={false} onPress={startButton} style={styles.startDate}>Start Date: {dateToString(startDate)}</Button>
 
             {startDateDialog && <DateTimePicker mode="date" value={startDate} onChange={(_, d) => setStartDate(d)}/>}
 

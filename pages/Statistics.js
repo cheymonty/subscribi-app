@@ -1,10 +1,11 @@
-import React, {useState} from 'react'
+import React, {useState, useContext} from 'react'
 import { StyleSheet, View, FlatList} from 'react-native'
 import {Text, Headline, Appbar} from 'react-native-paper'
 import {MiniCard} from '../components/MiniCard'
+import Context from '../context/Context'
 
 export default function Statistics() {
-
+    const context = useContext(Context)
     const [state, setState] = useState({
         temp: [
             {key: "1", name: "Playstation"},

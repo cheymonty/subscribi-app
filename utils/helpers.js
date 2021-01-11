@@ -81,5 +81,22 @@ function timeToString(hour) {
     return displayTime
 }
 
+function getEndDate(startDate, duration) {
+    let endDate = new Date(startDate.getTime())
+    let num = Number(duration.match(/\d+/)[0])
 
-export {Icon, getColor, dateToString, timeToString}
+    if (duration.includes("days"))
+        endDate.setDate(endDate.getDate() + num)
+    else if (duration.includes("weeks"))
+        endDate.setDate(endDate.getDate() + (num * 7))
+    else if (duration.includes("months"))
+        endDate.setMonth(endDate.getMonth() + num)
+    else
+        endDate.setFullYear(endDate.getFullYear() + num) 
+
+    console.log(endDate)
+    return endDate
+}
+
+
+export {Icon, getColor, dateToString, timeToString, getEndDate}

@@ -1,11 +1,13 @@
-import React from 'react'
+import React, {useContext} from 'react'
 import ActionSheet from 'react-native-actions-sheet'
 import {StyleSheet} from 'react-native';
 import {Title, List, Button} from 'react-native-paper'
+import Context from '../context/Context'
 
 
 //has to be a const to use forwarded ref correctly
-export const SubCardActions = React.forwardRef(({name, deletePress}, ref) => {
+export const SubCardActions = React.forwardRef(({name, id}, ref) => {
+    const context = useContext(Context)
     return (
         <ActionSheet ref={ref} bounceOnOpen gestureEnabled>
              
@@ -15,7 +17,7 @@ export const SubCardActions = React.forwardRef(({name, deletePress}, ref) => {
                 title="Delete subscription"
                 titleStyle={{color: "#ff4c4c", fontSize: 20}}
                 left={props => <List.Icon {...props} color="#ff4c4c" icon="delete-outline"/>} 
-                onPress={deletePress}   
+                onPress={_ => context.deleteSub(id)}   
             />
 
             
