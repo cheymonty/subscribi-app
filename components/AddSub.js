@@ -2,7 +2,6 @@ import React, {useState, useContext} from 'react'
 import { StyleSheet, TextInput, View, Keyboard} from 'react-native'
 import { Button, Paragraph} from 'react-native-paper'
 import DateTimePicker from '@react-native-community/datetimepicker'
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import SegmentedPicker from 'react-native-segmented-picker'
 import constants from '../utils/constants'
 import {dateToString, getEndDate} from '../utils/helpers'
@@ -76,7 +75,8 @@ export const AddSub = ({}) => {
             <Paragraph style={{fontWeight: "bold"}}>Subscription Start</Paragraph>
             <Button mode="outlined" uppercase={false} onPress={startButton} style={styles.startDate}>Start Date: {dateToString(startDate)}</Button>
 
-            {startDateDialog && <DateTimePicker mode="date" value={startDate} onChange={(_, d) => setStartDate(d)}/>}
+            {/* TODO: need to fix android, setStartDate is only fired when okay is pressed. On ios it is called after every spin */}
+            {startDateDialog && <DateTimePicker mode="date" display="spinner" value={startDate} onChange={(e, d) => setStartDate(d)}/>}
 
 
             <Button uppercase={false} icon="arrow-down" contentStyle={{flexDirection: "row-reverse"}} color="black" onPress={() => setPickerVisible(true)}>Select duration: {duration}</Button>

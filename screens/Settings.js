@@ -65,7 +65,7 @@ export default function Settings() {
         closeTimeMenu()  
     }
 
-    const {toggleDarkMode, darkMode} = useContext(Context)
+    const {darkMode, toggleDarkMode} = useContext(Context)
     
 
     return (

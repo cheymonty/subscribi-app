@@ -1,7 +1,7 @@
 import React, {createRef} from 'react';
-import {StyleSheet, View, TouchableOpacity, TouchableHighlight} from 'react-native';
+import {StyleSheet, View, TouchableOpacity} from 'react-native';
 import {Title, Paragraph, Subheading} from 'react-native-paper';
-import {getColor, dateToString} from '../utils/helpers'
+import {dateToString} from '../utils/helpers'
 import {SubCardActions} from './SubCardActions'
 
 //TODO:
@@ -9,7 +9,7 @@ import {SubCardActions} from './SubCardActions'
 
 
 //has to be a function for correct createRef use
-export default function SubCard({editPress, id, name, cost, endDay}) {
+export default function SubCard({id, name, cost, endDay}) {
     const actionSheetRef = createRef()
 
     return (
@@ -27,7 +27,6 @@ export default function SubCard({editPress, id, name, cost, endDay}) {
                     <Subheading style={styles.cost}>{cost === 0 ? "Free" : `$${cost}`}</Subheading>
                     <Subheading style={styles.date}>{dateToString(endDay)}</Subheading>
                 </View>
-                {/* <MaterialCommunityIcons style={styles.edit} onPress={editPress} name="pencil" size={24} color="#fd4e6b"/> */}
             </TouchableOpacity>
 
             <SubCardActions

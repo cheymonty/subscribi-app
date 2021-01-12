@@ -96,9 +96,9 @@ export default function App() {
     //TODO: put current darkMode boolean in asyncstorage
     setDarkMode(!darkMode)
   }
-
+  
   const global = {
-    //TODO: setup asyncStorge get
+    //TODO: setup asyncStorage get
     subscriptions: subscriptions,
     addSub,
     deleteSub,

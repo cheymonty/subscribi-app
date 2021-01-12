@@ -26,10 +26,6 @@ import Context from '../context/Context'
 let timeOfNotification;
 export default function Home() {
 
-
-    const [state, setState] = useState({
-        subscriptions: []
-    })
     const [modalVisible, setModalVisible] = useState(false);
     
 
@@ -71,17 +67,6 @@ export default function Home() {
             
             //TODO: Just for testing
             Notifications.cancelAllScheduledNotificationsAsync()
-        }
-    }
-
-
-    function editSub(key) {
-        let s = state.subscriptions
-        if (s) {
-            let sub = s.findIndex(sub => sub.key === key)
-            if (sub) {
-                console.log(sub.name) 
-            }
         }
     }
 

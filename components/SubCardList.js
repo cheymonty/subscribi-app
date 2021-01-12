@@ -9,8 +9,7 @@ export default function SubCardList({subscriptions}) {
         data={subscriptions}
         renderItem={({item}) => {
             return (
-                <SubCard 
-                    editPress={_ => editSub(item.key)} 
+                <SubCard
                     id={item.key}
                     name={item.name} 
                     cost={item.cost}
