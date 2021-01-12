@@ -12,6 +12,8 @@ import { AntDesign } from '@expo/vector-icons'
 import * as Notifications from 'expo-notifications'
 import * as Permissions from 'expo-permissions'
 import constants from './utils/constants'
+import {lightTheme, darkTheme} from './utils/theme'
+import {getSubscriptions} from './utils/setup'
 
 import Context from './context/Context'
 
@@ -95,7 +97,17 @@ export default function App() {
   const toggleDarkMode = () => {
     //TODO: put current darkMode boolean in asyncstorage
     setDarkMode(!darkMode)
+    toggleTheme(!darkMode)
   }
+
+  const [theme, setTheme] = useState(lightTheme)
+  const toggleTheme = (darkMode) => {
+    if (darkMode)
+      setTheme(darkTheme)
+    else
+      setTheme(lightTheme)
+  }
+
   
   const global = {
     //TODO: setup asyncStorage get
@@ -104,7 +116,8 @@ export default function App() {
     deleteSub,
     sortSubs,
     darkMode: darkMode,
-    toggleDarkMode
+    toggleDarkMode,
+    theme: theme,
   }
 
   return (

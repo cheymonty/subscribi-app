@@ -65,27 +65,27 @@ export default function Settings() {
         closeTimeMenu()  
     }
 
-    const {darkMode, toggleDarkMode} = useContext(Context)
+    const {darkMode, toggleDarkMode, theme} = useContext(Context)
     
 
     return (
-        <View style={styles.container}>
-            <Appbar.Header style={{backgroundColor: "#4ade80"}}>
+        <View style={styles(theme).container}>
+            <Appbar.Header style={{backgroundColor: theme.primary}}>
                 <Appbar.Content titleStyle={{fontSize: 25, color:"white"}} title="Settings"/>
             </Appbar.Header>
             <List.Subheader>General</List.Subheader>
 
             <List.Item
                 title="Dark Mode"
-                left={props => <List.Icon {...props} color="#4ade80" icon="weather-night"/>}
-                right={_=> <Switch color="#42EBDF" onValueChange={toggleDarkMode} value={darkMode}/>}
+                left={props => <List.Icon {...props} color={theme.primary} icon="weather-night"/>}
+                right={_=> <Switch color={theme.accent} onValueChange={toggleDarkMode} value={darkMode}/>}
             />
          
 
             <List.Item 
                 title="Reminder Notifications"
-                left={props => <List.Icon {...props} color="#4ade80" icon="bell-outline"/>}
-                right={_=> <Switch color="#42EBDF" onValueChange={() => setReminders(!allowReminders)} value={allowReminders}/>}
+                left={props => <List.Icon {...props} color={theme.primary} icon="bell-outline"/>}
+                right={_=> <Switch color={theme.accent} onValueChange={() => setReminders(!allowReminders)} value={allowReminders}/>}
             />
         
 
@@ -94,7 +94,7 @@ export default function Settings() {
           
             <List.Item
                 title="Notification Time"   
-                left={props => <List.Icon {...props} color="#4ade80" icon="clock-outline"/>} 
+                left={props => <List.Icon {...props} color={theme.primary} icon="clock-outline"/>} 
                 right={_ => 
                     <Menu
                         visible={timeMenu}
@@ -114,7 +114,7 @@ export default function Settings() {
 
             <List.Item
                 title="1 day before"
-                right={_=> <Switch color="#42EBDF" onValueChange={() => setChecked(!checked)} value={checked}/>}
+                right={_=> <Switch color={theme.accent} onValueChange={() => setChecked(!checked)} value={checked}/>}
             />
       
 
@@ -122,18 +122,9 @@ export default function Settings() {
     )
 }
 
-const styles = StyleSheet.create({
+const styles = (theme) => StyleSheet.create({
     container: {
         flex: 1,
-        // backgroundColor:"#f0fff1"
-    }, 
-
-    listContainer: {
-        backgroundColor: "white", 
-        borderRadius: 20, 
-        marginLeft: "5%", 
-        marginRight: "5%", 
-        marginBottom: "5%"
-    }
-    
-  });
+        backgroundColor:theme.background
+    },     
+  })
