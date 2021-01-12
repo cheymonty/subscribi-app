@@ -39,7 +39,7 @@ export default function Home() {
 
     const [duration, setDuration] = useState("1 days")
 
-    const context = useContext(Context)
+    const {subscriptions, sortSubs} = useContext(Context)
 
 
     function hideDialog() {
@@ -54,20 +54,20 @@ export default function Home() {
             let newDate = endDate
             
             // console.log("noti: " + typeof timeOfNotification)
-            newDate.setHours(timeOfNotification)
-            newDate.setMinutes(0)
-            newDate.setSeconds(0)
+            // newDate.setHours(timeOfNotification)
+            // newDate.setMinutes(0)
+            // newDate.setSeconds(0)
            
-            await Notifications.scheduleNotificationAsync({
-                content: {
-                    title: `${name} is recurring soon!`,
-                    body: `Your ${name} subscription is about to recur`,
-                    data: { data: 'goes here' },
-                    },
-                trigger: newDate,
-            })
+            // await Notifications.scheduleNotificationAsync({
+            //     content: {
+            //         title: `${name} is recurring soon!`,
+            //         body: `Your ${name} subscription is about to recur`,
+            //         data: { data: 'goes here' },
+            //         },
+            //     trigger: newDate,
+            // })
 
-            console.log('Notification scheduled for: ' + newDate);
+            // console.log('Notification scheduled for: ' + newDate);
             
             //TODO: Just for testing
             Notifications.cancelAllScheduledNotificationsAsync()
@@ -89,7 +89,7 @@ export default function Home() {
       <View style={styles.container}>
            <Appbar.Header style={{backgroundColor: "#4ade80"}}>
                 <Appbar.Content title="Home" titleStyle={{fontSize: 25, color:"white"}}/>
-                <Appbar.Action icon="sort" color="white" onPress={context.sortSubs} accessibilityLabel="Sort subscriptions"/>
+                <Appbar.Action icon="sort" color="white" onPress={sortSubs} accessibilityLabel="Sort subscriptions"/>
                 <Appbar.Action icon="plus" color="white" onPress={showModal}  accessibilityLabel="Add a new subscription"/>
             </Appbar.Header>
             
@@ -108,7 +108,7 @@ export default function Home() {
             </View>
         </Modal>
 
-        {context.subscriptions.length === 0 && 
+        {subscriptions.length === 0 && 
             <Headline style={{textAlign: "center"}}>Tap + to add a subscription</Headline>
         }
 

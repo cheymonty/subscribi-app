@@ -18,9 +18,9 @@ export const AddSub = ({}) => {
     const [pickerVisible, setPickerVisible] = useState(false)
     const [duration, setDuration] = useState("1 days")
 
-    const context = useContext(Context)
+    const {subscriptions, addSub}= useContext(Context)
 
-    function addSub() {
+    function submit() {
         //structuring newSub
         //TODO: set up notifications
 
@@ -32,7 +32,7 @@ export const AddSub = ({}) => {
         // }
 
         let endDate = getEndDate(startDate, duration)
-        let key = `${context.subscriptions.length}-${name}`
+        let key = `${subscriptions.length}-${name}`
 
         let newSub = {
             name: name,
@@ -42,7 +42,7 @@ export const AddSub = ({}) => {
             endDay: endDate,
             duration: duration,
         }
-        context.addSub(newSub)
+        addSub(newSub)
     }
 
     function startButton() {
@@ -95,7 +95,7 @@ export const AddSub = ({}) => {
             />
 
          
-            <Button style={styles.doneButton} disabled={name.length > 0 ? false : true} mode="contained" onPress={addSub}>Done</Button>
+            <Button style={styles.doneButton} disabled={name.length > 0 ? false : true} mode="contained" onPress={submit}>Done</Button>
 
         </View>
     )

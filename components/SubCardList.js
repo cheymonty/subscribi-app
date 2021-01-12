@@ -5,10 +5,10 @@ import SubCard from './SubCard'
 
 
 export default function SubCardList() {
-    const context = useContext(Context)
+    const {subscriptions} = useContext(Context)
     return (
         <FlatList 
-        data={context.subscriptions}
+        data={subscriptions}
         renderItem={({item}) => {
             return (
                 <SubCard 

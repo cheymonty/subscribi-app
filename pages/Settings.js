@@ -26,6 +26,7 @@ export default function Settings() {
             const timeOfNotification = await AsyncStorage.getItem('@timeOfNotification')
             console.log("noti: " + timeOfNotification)
 
+            //TODO: get rid of this line
             await AsyncStorage.removeItem('@displayTime')
 
             if (!timeOfNotification) {
@@ -68,7 +69,7 @@ export default function Settings() {
         closeTimeMenu()  
     }
 
-    const context = useContext(Context)
+    const {subscriptions} = useContext(Context)
     
 
     return (
@@ -76,7 +77,7 @@ export default function Settings() {
             <Appbar.Header style={{backgroundColor: "#4ade80"}}>
                 <Appbar.Content titleStyle={{fontSize: 25, color:"white"}} title="Settings"/>
             </Appbar.Header>
-            <Button onPress={_ => console.log(context.subscriptions)}>YUH</Button>
+            <Button onPress={_ => console.log(subscriptions)}>YUH</Button>
             <List.Subheader>General</List.Subheader>
 
             <List.Item
