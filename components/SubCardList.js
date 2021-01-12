@@ -1,11 +1,9 @@
-import React, {useContext} from 'react'
+import React from 'react'
 import {FlatList} from 'react-native'
-import Context from '../context/Context'
 import SubCard from './SubCard'
 
 
-export default function SubCardList() {
-    const {subscriptions} = useContext(Context)
+export default function SubCardList({subscriptions}) {
     return (
         <FlatList 
         data={subscriptions}

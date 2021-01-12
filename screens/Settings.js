@@ -9,7 +9,6 @@ import Context from '../context/Context'
 
 // state : {
 //     timeOfNotification: Number
-//     darkMode: Boolean
 //     allowReminders: Boolean
 // }
 
@@ -17,7 +16,6 @@ import Context from '../context/Context'
 
 export default function Settings() {
     const [state, setState] = React.useState({
-        darkMode: false,
         allowReminders: true
     })
 
@@ -47,8 +45,6 @@ export default function Settings() {
 
     const [allowReminders, setReminders] = React.useState(true)
 
-    const [darkMode, setDarkMode] = React.useState(false)
-
     const [checked, setChecked] = React.useState(true)
 
     const [timeMenu, setTimeMenu] = React.useState(false)
@@ -69,7 +65,7 @@ export default function Settings() {
         closeTimeMenu()  
     }
 
-    const {subscriptions} = useContext(Context)
+    const {toggleDarkMode, darkMode} = useContext(Context)
     
 
     return (
@@ -77,13 +73,12 @@ export default function Settings() {
             <Appbar.Header style={{backgroundColor: "#4ade80"}}>
                 <Appbar.Content titleStyle={{fontSize: 25, color:"white"}} title="Settings"/>
             </Appbar.Header>
-            <Button onPress={_ => console.log(subscriptions)}>YUH</Button>
             <List.Subheader>General</List.Subheader>
 
             <List.Item
                 title="Dark Mode"
                 left={props => <List.Icon {...props} color="#4ade80" icon="weather-night"/>}
-                right={_=> <Switch color="#42EBDF" onValueChange={() => setDarkMode(!darkMode)} value={darkMode}/>}
+                right={_=> <Switch color="#42EBDF" onValueChange={toggleDarkMode} value={darkMode}/>}
             />
          
 

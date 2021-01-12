@@ -1,9 +1,9 @@
 import 'react-native-gesture-handler'
 import React, {useState, useEffect, useRef} from 'react'
 import {Platform, LayoutAnimation, UIManager} from 'react-native'
-import Home from './pages/Home'
-import Settings from './pages/Settings'
-import Statistics from './pages/Statistics'
+import Home from './screens/Home'
+import Settings from './screens/Settings'
+import Statistics from './screens/Statistics'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Provider as PaperProvider } from 'react-native-paper'
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs'
@@ -82,7 +82,6 @@ export default function App() {
     setSubs(s)
   }
 
-  //TODO: sorts by cost currently, should change to something else
   const sortSubs = () => {
     let s = [...subscriptions]
     if (s.length > 1) { //so there's no unneeded calculations done
@@ -94,6 +93,7 @@ export default function App() {
 
   const [darkMode, setDarkMode] = useState(false)
   const toggleDarkMode = () => {
+    //TODO: put current darkMode boolean in asyncstorage
     setDarkMode(!darkMode)
   }
 

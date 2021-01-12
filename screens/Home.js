@@ -112,7 +112,9 @@ export default function Home() {
             <Headline style={{textAlign: "center"}}>Tap + to add a subscription</Headline>
         }
 
-        <SubCardList/>
+        <SubCardList
+            subscriptions={subscriptions}
+        />
 
         <FAB style={styles.fab} icon="plus" onPress={showModal}/>
       </View>
