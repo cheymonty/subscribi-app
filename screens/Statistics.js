@@ -5,7 +5,7 @@ import MiniCardList from '../components/MiniCardList'
 import Context from '../context/Context'
 
 export default function Statistics() {
-    const {subscriptions} = useContext(Context)
+    const {subscriptions, theme} = useContext(Context)
   
 
     function showChart(key) {
@@ -13,8 +13,8 @@ export default function Statistics() {
     }
 
     return (
-        <View style={styles.container}>
-            <Appbar.Header style={{backgroundColor: "#4ade80"}}>
+        <View style={styles(theme).container}>
+            <Appbar.Header style={{backgroundColor: theme.primary}}>
                 <Appbar.Content titleStyle={{fontSize: 25, color:"white"}} title="Statistics"/>
             </Appbar.Header>
 
@@ -36,8 +36,9 @@ export default function Statistics() {
 }
 
 
-const styles = StyleSheet.create({
+const styles = (theme) => StyleSheet.create({
     container: {
         flex: 1,
+        backgroundColor: theme.background
     }
 })

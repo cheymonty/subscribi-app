@@ -13,7 +13,8 @@ import * as Notifications from 'expo-notifications'
 import * as Permissions from 'expo-permissions'
 import constants from './utils/constants'
 import {lightTheme, darkTheme} from './utils/theme'
-import {getSubscriptions} from './utils/setup'
+import {updateAsyncStorage} from './utils/setup'
+import {reviveDate} from './utils/helpers'
 
 import Context from './context/Context'
 
@@ -68,11 +69,16 @@ export default function App() {
 
 
   //for global state
-  const [subscriptions, setSubs] = useState([])
+  const [subscriptions, setSubs] = useState(async () => {
+    let subs = await AsyncStorage.getItem("@subscriptions")
+    subs ? setSubs(JSON.parse(subs, reviveDate)) : setSubs([])
+    // await AsyncStorage.removeItem('@subscriptions')
+    // return []
+  })
   const addSub = (sub) => {
-    //TODO: add newSub to asyncStorage
     let s = [...subscriptions]
     s.unshift(sub)
+    updateAsyncStorage(s)
     setSubs(s)
   }
 
@@ -80,6 +86,7 @@ export default function App() {
     let s = [...subscriptions]
     let prev = s.findIndex(sub => sub.key === key)
     s.splice(prev, 1)
+    updateAsyncStorage(s)
     LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut)
     setSubs(s)
   }
@@ -88,6 +95,7 @@ export default function App() {
     let s = [...subscriptions]
     if (s.length > 1) { //so there's no unneeded calculations done
       s.sort((a, b) => a.endDay - b.endDay)
+      updateAsyncStorage(s)
       LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut)
       setSubs(s)
     }
@@ -110,7 +118,6 @@ export default function App() {
 
   
   const global = {
-    //TODO: setup asyncStorage get
     subscriptions: subscriptions,
     addSub,
     deleteSub,
@@ -119,6 +126,7 @@ export default function App() {
     toggleDarkMode,
     theme: theme,
   }
+  
 
   return (
     <Context.Provider value={global}>
@@ -127,7 +135,7 @@ export default function App() {
       <Tab.Navigator
         tabBarOptions={{
           style: {backgroundColor: "#ffffff"},
-          activeTintColor: '#4ade80',
+          activeTintColor: theme.primary,
           labelStyle: {
             fontSize: 11
           }
@@ -138,7 +146,7 @@ export default function App() {
           component={Home}
           options={{
             tabBarIcon: ({focused}) => (
-              <AntDesign name="home" size={25} style={{color: focused? "#4ade80" : "black"}}/>
+              <AntDesign name="home" size={25} style={{color: focused? theme.primary : "black"}}/>
             ),
           }}/>
 
@@ -148,7 +156,7 @@ export default function App() {
           component={Statistics}
           options={{
             tabBarIcon: ({focused}) => (
-              <AntDesign name="barschart" size={25} style={{color: focused? "#4ade80" : "black"}}/>
+              <AntDesign name="barschart" size={25} style={{color: focused? theme.primary : "black"}}/>
             ),
           }}/>
 
@@ -158,7 +166,7 @@ export default function App() {
           component={Settings}
           options={{
             tabBarIcon: ({focused}) => (
-              <AntDesign name="setting" size={25} style={{color: focused? "#4ade80" : "black"}}/>
+              <AntDesign name="setting" size={25} style={{color: focused? theme.primary : "black"}}/>
             )
           }}/>
       </Tab.Navigator>

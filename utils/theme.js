@@ -1,5 +1,6 @@
 const darkTheme = {
-    background: "#000000"
+    primary: "#27ABA2",
+    background: "#d8d8d8"
 }
 
 const lightTheme = {

@@ -98,5 +98,11 @@ function getEndDate(startDate, duration) {
     return endDate
 }
 
+function reviveDate(k, v) {
+    if (k === "startDay" || k === "endDay")
+        return new Date(v)
+    return v
+}
 
-export {Icon, getColor, dateToString, timeToString, getEndDate}
+
+export {Icon, getColor, dateToString, timeToString, getEndDate, reviveDate}

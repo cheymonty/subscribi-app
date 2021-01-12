@@ -35,7 +35,7 @@ export default function Home() {
 
     const [duration, setDuration] = useState("1 days")
 
-    const {subscriptions, sortSubs} = useContext(Context)
+    const {subscriptions, sortSubs, theme} = useContext(Context)
 
 
     function hideDialog() {
@@ -71,8 +71,8 @@ export default function Home() {
     }
 
     return (
-      <View style={styles.container}>
-           <Appbar.Header style={{backgroundColor: "#4ade80"}}>
+      <View style={styles(theme).container}>
+           <Appbar.Header style={{backgroundColor: theme.primary}}>
                 <Appbar.Content title="Home" titleStyle={{fontSize: 25, color:"white"}}/>
                 <Appbar.Action icon="sort" color="white" onPress={sortSubs} accessibilityLabel="Sort subscriptions"/>
                 <Appbar.Action icon="plus" color="white" onPress={showModal}  accessibilityLabel="Add a new subscription"/>
@@ -84,12 +84,12 @@ export default function Home() {
             <View style={{backgroundColor: "rgb(242,242,242)", height:"100%"}}>
 
                 <View style={{flexDirection: 'row'}}>
-                    <Title style={styles.modalTitle}>New Subscription</Title>
+                    <Title style={styles(theme).modalTitle}>New Subscription</Title>
                     <IconButton style={{textAlign: "right"}} icon="close" onPress={hideDialog}/>
                 </View>
 
                 <AddSub/>
-                <Button style={styles.cancelButton} mode="contained" onPress={hideDialog}>Cancel</Button>
+                <Button style={styles(theme).cancelButton} mode="contained" onPress={hideDialog}>Cancel</Button>
             </View>
         </Modal>
 
@@ -101,22 +101,20 @@ export default function Home() {
             subscriptions={subscriptions}
         />
 
-        <FAB style={styles.fab} icon="plus" onPress={showModal}/>
+        <FAB style={styles(theme).fab} icon="plus" onPress={showModal}/>
       </View>
     );
 }
 
-const styles = StyleSheet.create({
+const styles = (theme) => StyleSheet.create({
     container: {
         flex: 1,
-        //backgroundColor: "#f0f8ff",
-        // backgroundColor: "rgb(252, 130, 91)",
-        // backgroundColor:"#f0fff1"
+        backgroundColor: theme.background
     },
 
     modalTitle: {
         // textAlign: "center",
-        color: "#4ade80",
+        color: theme.primary,
         marginTop: 15,
         marginLeft: "25%",     
     },
@@ -126,13 +124,13 @@ const styles = StyleSheet.create({
         margin: 20, 
         right: 0,
         bottom: 0, 
-        backgroundColor: "#4ade80"
+        backgroundColor: theme.primary
     }, 
     
     header: {
         // marginTop:20,
         // color: "#ff8883", 
-        color: "#4ade80",
+        color: theme.primary,
         fontSize: 30, 
         left:13,
         textAlign:"left"

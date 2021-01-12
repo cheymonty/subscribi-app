@@ -49,6 +49,11 @@ export const AddSub = ({}) => {
         Keyboard.dismiss()
     }
 
+    function pickerButton() {
+        setPickerVisible(true)
+        Keyboard.dismiss()
+    }
+
     return (
         <View style={{backgroundColor: "rgb(242,242,242)"}}>
             <Paragraph style={{fontWeight: "bold", marginLeft: "10%"}}>Subscription Name</Paragraph>
@@ -79,7 +84,7 @@ export const AddSub = ({}) => {
             {startDateDialog && <DateTimePicker mode="date" display="spinner" value={startDate} onChange={(e, d) => setStartDate(d)}/>}
 
 
-            <Button uppercase={false} icon="arrow-down" contentStyle={{flexDirection: "row-reverse"}} color="black" onPress={() => setPickerVisible(true)}>Select duration: {duration}</Button>
+            <Button uppercase={false} icon="arrow-down" contentStyle={{flexDirection: "row-reverse"}} color="black" onPress={pickerButton}>Select duration: {duration}</Button>
             <SegmentedPicker
                     visible={pickerVisible}
                     onConfirm={selections => {
