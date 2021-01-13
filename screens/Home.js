@@ -73,9 +73,9 @@ export default function Home() {
     return (
       <View style={styles(theme).container}>
            <Appbar.Header style={{backgroundColor: theme.primary}}>
-                <Appbar.Content title="Home" titleStyle={{fontSize: 25, color:"white"}}/>
-                <Appbar.Action icon="sort" color="white" onPress={sortSubs} accessibilityLabel="Sort subscriptions"/>
-                <Appbar.Action icon="plus" color="white" onPress={showModal}  accessibilityLabel="Add a new subscription"/>
+                <Appbar.Content title="Home" titleStyle={{fontSize: 25, color:theme.headerText}}/>
+                <Appbar.Action icon="sort" color={theme.headerText} onPress={sortSubs} accessibilityLabel="Sort subscriptions"/>
+                <Appbar.Action icon="plus" color={theme.headerText} onPress={showModal}  accessibilityLabel="Add a new subscription"/>
             </Appbar.Header>
             
             {/* <Title style={styles.header}>Home</Title> */}

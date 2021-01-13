@@ -7,7 +7,7 @@ import Context from '../context/Context'
 
 //has to be a const to use forwarded ref correctly
 export const SubCardActions = React.forwardRef(({name, id}, ref) => {
-    const {deleteSub} = useContext(Context)
+    const {deleteSub, theme} = useContext(Context)
     return (
         <ActionSheet ref={ref} bounceOnOpen gestureEnabled>
              
@@ -24,7 +24,7 @@ export const SubCardActions = React.forwardRef(({name, id}, ref) => {
             <List.Item
                 title="Edit subscription"
                 titleStyle={{fontSize: 20}}
-                left={props => <List.Icon {...props} color="#4ade80" icon="pencil-outline"/>}
+                left={props => <List.Icon {...props} color={theme.primary} icon="pencil-outline"/>}
             />
                 
             <Button style={styles.cancelButton} labelStyle={{color: "black", fontWeight: "bold"}} mode="contained" onPress={_ => ref.current?.hide()}>Cancel</Button>     

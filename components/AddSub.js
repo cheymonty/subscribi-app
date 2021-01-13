@@ -17,7 +17,7 @@ export const AddSub = ({}) => {
     const [pickerVisible, setPickerVisible] = useState(false)
     const [duration, setDuration] = useState("1 days")
 
-    const {subscriptions, addSub}= useContext(Context)
+    const {subscriptions, addSub, theme} = useContext(Context)
 
     function submit() {
         //structuring newSub
@@ -58,7 +58,7 @@ export const AddSub = ({}) => {
         <View style={{backgroundColor: "rgb(242,242,242)"}}>
             <Paragraph style={{fontWeight: "bold", marginLeft: "10%"}}>Subscription Name</Paragraph>
             <TextInput 
-                    style={styles.nameInput} 
+                    style={styles(theme).nameInput} 
                     maxLength={30}
                     placeholder="Subscription Name" 
                     onChangeText={name => setName(name)}
@@ -68,7 +68,7 @@ export const AddSub = ({}) => {
 
             <Paragraph style={{fontWeight: "bold", marginLeft: "10%"}}>Price ($)</Paragraph>
             <TextInput 
-                    style={styles.costInput} 
+                    style={styles(theme).costInput} 
                     keyboardType="numeric"
                     maxLength={6}
                     placeholder="Price" 
@@ -78,7 +78,7 @@ export const AddSub = ({}) => {
             />
 
             <Paragraph style={{fontWeight: "bold"}}>Subscription Start</Paragraph>
-            <Button mode="outlined" uppercase={false} onPress={startButton} style={styles.startDate}>Start Date: {dateToString(startDate)}</Button>
+            <Button mode="outlined" uppercase={false} onPress={startButton} style={styles(theme).startDate}>Start Date: {dateToString(startDate)}</Button>
 
             {/* TODO: need to fix android, setStartDate is only fired when okay is pressed. On ios it is called after every spin */}
             {startDateDialog && <DateTimePicker mode="date" display="spinner" value={startDate} onChange={(e, d) => setStartDate(d)}/>}
@@ -100,13 +100,13 @@ export const AddSub = ({}) => {
             />
 
          
-            <Button style={styles.doneButton} disabled={name.length > 0 ? false : true} mode="contained" onPress={submit}>Done</Button>
+            <Button style={styles(theme).doneButton} disabled={name.length > 0 ? false : true} mode="contained" onPress={submit}>Done</Button>
 
         </View>
     )
 }
 
-const styles = StyleSheet.create({
+const styles = (theme) => StyleSheet.create({
     nameInput: {
         // fontSize: 20,
         // left: 20,
@@ -116,7 +116,7 @@ const styles = StyleSheet.create({
         height: 50,
         fontSize: 15,
         borderWidth: 2,
-        borderColor: "#42EBDF",
+        borderColor: theme.accent,
         borderRadius: 10,
         width: "80%",
         marginLeft: "10%",
@@ -162,10 +162,10 @@ const styles = StyleSheet.create({
     doneButton: {
         width: "80%", 
         marginLeft: "10%",
-        backgroundColor: "#4ade80",
+        backgroundColor: theme.primary,
         // marginLeft: "25%",
         borderWidth: 2,
-        borderColor: "#4ade80",
+        borderColor: theme.primary,
         borderRadius: 10,      
     },
   })
