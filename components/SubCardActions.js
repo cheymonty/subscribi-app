@@ -40,7 +40,8 @@ const styles = StyleSheet.create({
     sheetTitle: {
         textAlign: "center", 
         fontSize: 30, 
-        marginTop: "2%"
+        marginTop: "2%",
+        paddingTop: 0.5
     },
 
     cancelButton: {

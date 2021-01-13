@@ -62,7 +62,8 @@ const styles = StyleSheet.create({
         top:20,
         left: 13,
         fontSize: 30,  
-        color: "#000000" 
+        color: "#000000" ,
+        paddingTop: 0.5
     },
 
     cost: {
