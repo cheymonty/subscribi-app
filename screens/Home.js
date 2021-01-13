@@ -83,9 +83,10 @@ export default function Home() {
         <Modal animationType="slide" visible={modalVisible} onRequestClose={hideDialog} presentationStyle="formSheet">
             <View style={{backgroundColor: "rgb(242,242,242)", height:"100%"}}>
 
-                <View style={{flexDirection: 'row'}}>
+                <View style={{flexDirection: 'row', backgroundColor: "white"}}>
                     <Title style={styles(theme).modalTitle}>New Subscription</Title>
-                    <IconButton style={{textAlign: "right"}} icon="close" onPress={hideDialog}/>
+                    {/* <IconButton style={{textAlign: "right"}} icon="close" onPress={hideDialog}/> */}
+                    <Button uppercase={false} style={{ marginTop: 15}} color="#ff4c4c" onPress={hideDialog}>Cancel</Button>
                 </View>
 
                 <AddSub/>

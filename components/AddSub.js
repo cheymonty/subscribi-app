@@ -55,8 +55,8 @@ export const AddSub = ({}) => {
     }
 
     return (
-        <View style={{backgroundColor: "rgb(242,242,242)"}}>
-            <Paragraph style={{fontWeight: "bold", marginLeft: "10%"}}>Subscription Name</Paragraph>
+        <View style={{backgroundColor: "rgb(242,242,242)", margin: "10%"}}>
+            <Paragraph style={{fontWeight: "bold"}}>Subscription Name</Paragraph>
             <TextInput 
                     style={styles(theme).nameInput} 
                     maxLength={30}
@@ -66,7 +66,7 @@ export const AddSub = ({}) => {
                     underlineColorAndroid="transparent"
             />
 
-            <Paragraph style={{fontWeight: "bold", marginLeft: "10%"}}>Price ($)</Paragraph>
+            <Paragraph style={{fontWeight: "bold"}}>Price ($)</Paragraph>
             <TextInput 
                     style={styles(theme).costInput} 
                     keyboardType="numeric"
@@ -78,12 +78,13 @@ export const AddSub = ({}) => {
             />
 
             <Paragraph style={{fontWeight: "bold"}}>Subscription Start</Paragraph>
-            <Button mode="outlined" uppercase={false} onPress={startButton} style={styles(theme).startDate}>Start Date: {dateToString(startDate)}</Button>
+            <Button color={theme.primary} uppercase={false} onPress={startButton} style={styles(theme).startDate}>Start Date: {dateToString(startDate)}</Button>
 
             {/* TODO: need to fix android, setStartDate is only fired when okay is pressed. On ios it is called after every spin */}
             {startDateDialog && <DateTimePicker mode="date" display="spinner" value={startDate} onChange={(e, d) => setStartDate(d)}/>}
 
 
+            <Paragraph style={{fontWeight: "bold"}}>Duration</Paragraph>
             <Button uppercase={false} icon="arrow-down" contentStyle={{flexDirection: "row-reverse"}} color="black" onPress={pickerButton}>Select duration: {duration}</Button>
             <SegmentedPicker
                     visible={pickerVisible}
@@ -162,10 +163,10 @@ const styles = (theme) => StyleSheet.create({
     doneButton: {
         width: "80%", 
         marginLeft: "10%",
-        backgroundColor: theme.primary,
+        backgroundColor: theme.accent,
         // marginLeft: "25%",
         borderWidth: 2,
-        borderColor: theme.primary,
+        borderColor: theme.accent,
         borderRadius: 10,      
     },
   })

@@ -1,5 +1,6 @@
 const darkTheme = {
-    primary: "#27aba2",
+    // primary: "#27aba2",
+    primary: "#1f024c",
     background: "#d8d8d8",
     accent: "#399ef6",
     headerText: "#ffffff"
