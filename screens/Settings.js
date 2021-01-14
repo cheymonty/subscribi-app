@@ -3,16 +3,13 @@ import { StyleSheet, View} from 'react-native'
 import {Appbar, Divider,Switch, List,Menu,Button} from 'react-native-paper'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {timeToString} from '../utils/helpers'
-import constants from '../utils/constants'
 
 import Context from '../context/Context'
 
 // state : {
-//     timeOfNotification: Number
 //     allowReminders: Boolean
 // }
 
-//TODO: [X] remove displayTime and create a function that changes Number to displayTime
 
 export default function Settings() {
     const [state, setState] = React.useState({
@@ -21,51 +18,26 @@ export default function Settings() {
 
     useEffect(() => {
         const check = async() => {
-            const timeOfNotification = await AsyncStorage.getItem('@timeOfNotification')
-            console.log("noti: " + timeOfNotification)
 
             //TODO: get rid of this line
             await AsyncStorage.removeItem('@displayTime')
 
-            if (!timeOfNotification) {
-                try {
-                    await AsyncStorage.setItem('@timeOfNotification', JSON.stringify(constants.DEFAULT_TIME))
-                } catch(e) {
-                }
-            }
-
-    
-            setState({
-                timeOfNotification: timeOfNotification? JSON.parse(timeOfNotification): constants.DEFAULT_TIME
-            })
-  
         }
         check()
     }, [])
 
     const [allowReminders, setReminders] = React.useState(true)
 
-    const [checked, setChecked] = React.useState(true)
 
     const [timeMenu, setTimeMenu] = React.useState(false)
     const closeTimeMenu = () => setTimeMenu(false)
 
-    const setTime = async(hour) => {
-    
-        setState({
-            timeOfNotification: hour
-        })
+    const {darkMode, toggleDarkMode, theme, setNotiTime, timeOfNotification } = useContext(Context)
 
-        try { 
-            await AsyncStorage.setItem('@timeOfNotification', JSON.stringify(hour))
-        } catch(e) {
-
-        }
-   
+    const setTime = (hour) => {
+        setNotiTime(hour)
         closeTimeMenu()  
     }
-
-    const {darkMode, toggleDarkMode, theme} = useContext(Context)
     
 
     return (
@@ -99,7 +71,7 @@ export default function Settings() {
                     <Menu
                         visible={timeMenu}
                         onDismiss={closeTimeMenu}
-                        anchor={<Button icon="arrow-down" onPress={() => setTimeMenu(!timeMenu)} contentStyle={{flexDirection: "row-reverse"}}>{timeToString(state.timeOfNotification)}</Button>}
+                        anchor={<Button icon="arrow-down" onPress={() => setTimeMenu(!timeMenu)} contentStyle={{flexDirection: "row-reverse"}}>{timeToString(timeOfNotification)}</Button>}
                     >
                         <Menu.Item onPress={() => {setTime(6)}} title="6:00 AM"/>
                         <Menu.Item onPress={() => {setTime(9)}} title="9:00 AM"/>
@@ -110,13 +82,7 @@ export default function Settings() {
                     </Menu>        
                 }
             />
-    
 
-            <List.Item
-                title="1 day before"
-                right={_=> <Switch color={theme.accent} onValueChange={() => setChecked(!checked)} value={checked}/>}
-            />
-      
 
         </View>
     )

@@ -5,6 +5,7 @@ import DateTimePicker from '@react-native-community/datetimepicker'
 import SegmentedPicker from 'react-native-segmented-picker'
 import constants from '../utils/constants'
 import {dateToString, getEndDate} from '../utils/helpers'
+import {createNotification} from '../utils/notifications'
 
 import Context from '../context/Context'
 
@@ -17,11 +18,10 @@ export const AddSub = ({}) => {
     const [pickerVisible, setPickerVisible] = useState(false)
     const [duration, setDuration] = useState("1 days")
 
-    const {subscriptions, addSub, theme} = useContext(Context)
+    const {addSub, theme, timeOfNotification} = useContext(Context)
 
     function submit() {
         //structuring newSub
-        //TODO: set up notifications
 
         //TODO: if duration button isnt clicked at all, duration ends up being "" and
         //setDuration doesnt fire in time
@@ -31,7 +31,7 @@ export const AddSub = ({}) => {
         // }
 
         let endDate = getEndDate(startDate, duration)
-        let key = `${subscriptions.length}-${name}`
+        let key = `${Math.floor(Math.random() * 1000)}-${name}`
 
         let newSub = {
             name: name,
@@ -41,6 +41,11 @@ export const AddSub = ({}) => {
             endDay: endDate,
             duration: duration,
         }
+
+        //makes sure endDate is in the future for notification purposes
+        if (endDate > new Date())
+            createNotification(name, endDate, timeOfNotification)
+        
         addSub(newSub)
     }
 

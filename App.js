@@ -116,6 +116,17 @@ export default function App() {
       setTheme(lightTheme)
   }
 
+  const [timeOfNotification, setTime] = useState(async () => {
+    let time = await AsyncStorage.getItem("@timeOfNotification")
+    time ? setTime(JSON.parse(time)) : setTime(constants.DEFAULT_TIME)
+  })
+
+  const setNotiTime = (hour) => {
+    setTime(hour)
+    updateStorage("@timeOfNotification", hour)
+  }
+
+
   
   const global = {
     subscriptions: subscriptions,
@@ -125,6 +136,8 @@ export default function App() {
     darkMode: darkMode,
     toggleDarkMode,
     theme: theme,
+    timeOfNotification: timeOfNotification,
+    setNotiTime
   }
   
 
