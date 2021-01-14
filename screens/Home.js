@@ -1,6 +1,6 @@
 import React, {useState, useContext} from 'react'
 import { StyleSheet, View, Modal} from 'react-native'
-import { Title, FAB, Appbar, IconButton, Button, Headline} from 'react-native-paper'
+import { Title, FAB, Appbar, IconButton, Headline, Button} from 'react-native-paper'
 import {AddSub} from '../components/AddSub'
 import {StatusBar} from 'expo-status-bar'
 import SubCardList from '../components/SubCardList'
@@ -49,9 +49,8 @@ export default function Home() {
             <View style={{backgroundColor: "rgb(242,242,242)", height:"100%"}}>
 
                 <View style={{flexDirection: 'row', backgroundColor: "white"}}>
+                    <Button uppercase={false} style={{ marginTop: 15, width: "25%"}} color="white" labelStyle={{color: "#ff4c4c"}} onPress={hideDialog}>Cancel</Button>  
                     <Title style={styles(theme).modalTitle}>New Subscription</Title>
-                    {/* <IconButton style={{textAlign: "right"}} icon="close" onPress={hideDialog}/> */}
-                    <Button uppercase={false} style={{ marginTop: 15}} color="#ff4c4c" onPress={hideDialog}>Cancel</Button>
                 </View>
 
                 <AddSub/>
@@ -80,10 +79,11 @@ const styles = (theme) => StyleSheet.create({
     },
 
     modalTitle: {
-        // textAlign: "center",
+        textAlign: "center",
         color: theme.primary,
         marginTop: 15,
-        marginLeft: "25%",     
+        // marginLeft: "10%",    
+        width: "50%" 
     },
  
     fab: {
