@@ -13,7 +13,7 @@ import * as Notifications from 'expo-notifications'
 import * as Permissions from 'expo-permissions'
 import constants from './utils/constants'
 import {lightTheme, darkTheme} from './utils/theme'
-import {updateAsyncSubs} from './utils/setup'
+import {updateStorage} from './utils/storage'
 import {reviveDate} from './utils/helpers'
 
 import Context from './context/Context'
@@ -78,7 +78,7 @@ export default function App() {
   const addSub = (sub) => {
     let s = [...subscriptions]
     s.unshift(sub)
-    updateAsyncSubs(s)
+    updateStorage("@subscriptions", s)
     setSubs(s)
   }
 
@@ -86,7 +86,7 @@ export default function App() {
     let s = [...subscriptions]
     let prev = s.findIndex(sub => sub.key === key)
     s.splice(prev, 1)
-    updateAsyncSubs(s)
+    updateStorage("@subscriptions", s)
     LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut)
     setSubs(s)
   }
@@ -95,7 +95,7 @@ export default function App() {
     let s = [...subscriptions]
     if (s.length > 1) { //so there's no unneeded calculations done
       s.sort((a, b) => a.endDay - b.endDay)
-      updateAsyncSubs(s)
+      updateStorage("@subscriptions", s)
       LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut)
       setSubs(s)
     }

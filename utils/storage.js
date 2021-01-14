@@ -1,11 +1,11 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-async function updateAsyncSubs(subs) {
-    await AsyncStorage.setItem('@subscriptions', JSON.stringify(subs))
-}
-
 async function updateAsyncDarkMode(darkMode) {
     await AsyncStorage.setItem("@darkMode", JSON.stringify(darkMode))
 }
 
-export {updateAsyncDarkMode, updateAsyncSubs}
+async function updateStorage(key, value) {
+    await AsyncStorage.setItem(key, JSON.stringify(value))
+}
+
+export {updateAsyncDarkMode, updateStorage}
