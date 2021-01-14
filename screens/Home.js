@@ -1,5 +1,5 @@
 import React, {useState, useContext} from 'react'
-import { StyleSheet, View, Modal} from 'react-native'
+import { StyleSheet, View, Modal, SafeAreaView} from 'react-native'
 import { Title, FAB, Appbar, IconButton, Headline, Button} from 'react-native-paper'
 import {AddSub} from '../components/AddSub'
 import {StatusBar} from 'expo-status-bar'
@@ -38,12 +38,12 @@ export default function Home() {
     return (
       <View style={styles(theme).container}>
            <Appbar.Header style={{backgroundColor: theme.primary}}>
-                <Appbar.Content title="Home" titleStyle={{fontSize: 25, color:theme.headerText}}/>
+                <Appbar.Content title="Home" titleStyle={{fontSize: 35, color: theme.headerText}}/>
                 <Appbar.Action icon="sort" color={theme.headerText} onPress={sortSubs} accessibilityLabel="Sort subscriptions"/>
                 <Appbar.Action icon="plus" color={theme.headerText} onPress={showModal}  accessibilityLabel="Add a new subscription"/>
             </Appbar.Header>
             
-            {/* <Title style={styles.header}>Home</Title> */}
+            {/* <Title style={styles(theme).header}>Home</Title> */}
 
         <Modal animationType="slide" visible={modalVisible} onRequestClose={hideDialog} presentationStyle="formSheet">
             <View style={{backgroundColor: "rgb(242,242,242)", height:"100%"}}>
@@ -66,7 +66,7 @@ export default function Home() {
             subscriptions={subscriptions}
         />
 
-        <FAB style={styles(theme).fab} icon="plus" onPress={showModal}/>
+        <FAB style={styles(theme).fab} icon="plus" color="white" onPress={showModal}/>
         <StatusBar style={darkMode ? "light" : "dark"}/>
       </View>
     );
@@ -97,10 +97,12 @@ const styles = (theme) => StyleSheet.create({
     header: {
         // marginTop:20,
         // color: "#ff8883", 
-        color: theme.primary,
-        fontSize: 30, 
+        // color: theme.primary,
+        color: "white",
+        fontSize: 35, 
         left:13,
-        textAlign:"left"
+        textAlign:"left",
+        fontWeight: "bold"
     }, 
 
     cancelButton: {

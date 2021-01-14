@@ -64,7 +64,7 @@ export const AddSub = ({}) => {
             <Paragraph style={{fontWeight: "bold"}}>Subscription Name</Paragraph>
             <TextInput 
                     style={styles(theme).nameInput} 
-                    maxLength={30}
+                    maxLength={25}
                     placeholder="Subscription Name" 
                     onChangeText={name => setName(name)}
                     onSubmitEditing={(e) => setName(e.nativeEvent.text)} 

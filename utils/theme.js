@@ -7,8 +7,11 @@ const darkTheme = {
 }
 
 const lightTheme = {
-    primary: "#4ade80",
+    // primary: "#4ade80",
+    primary: "#77e6a0",
     background: "#f6f6f6",
+    // background: "#4ade80",
+    // background: "#77e6a0",
     accent: "#42ebdf",
     headerText: "#ffffff"
 }

@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
         shadowColor: "#000",
         shadowOffset: {
 	        width: 0,
-	        height: 4,
+	        height: 5,
         },
         shadowOpacity: 0.30,
         shadowRadius: 4.65,
@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
     },
 
     cardTitle: {
-        top:20,
+        top:15,
         left: 13,
         fontSize: 30,  
         color: "#000000" ,
