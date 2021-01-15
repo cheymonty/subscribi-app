@@ -18,7 +18,7 @@ import {reviveDate} from './utils/helpers'
 
 import Context from './context/Context'
 
-const Tab = createBottomTabNavigator()
+const BottomTab = createBottomTabNavigator()
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -145,16 +145,14 @@ export default function App() {
     <Context.Provider value={global}>
     <NavigationContainer>
     <PaperProvider>
-      <Tab.Navigator
+      <BottomTab.Navigator
         tabBarOptions={{
-          style: {backgroundColor: "#ffffff"},
+          style: {backgroundColor: theme.background, borderTopWidth: 0, elevation: 0},
           activeTintColor: theme.primary,
-          labelStyle: {
-            fontSize: 11
-          }
+          showLabel: false,
         }}
       >
-        <Tab.Screen 
+        <BottomTab.Screen 
           name="Home" 
           component={Home}
           options={{
@@ -164,7 +162,7 @@ export default function App() {
           }}/>
 
         
-        <Tab.Screen 
+        <BottomTab.Screen 
           name="Statistics" 
           component={Statistics}
           options={{
@@ -174,7 +172,7 @@ export default function App() {
           }}/>
 
 
-        <Tab.Screen
+        <BottomTab.Screen
           name="Settings"
           component={Settings}
           options={{
@@ -182,7 +180,7 @@ export default function App() {
               <AntDesign name="setting" size={25} style={{color: focused? theme.primary : "black"}}/>
             )
           }}/>
-      </Tab.Navigator>
+      </BottomTab.Navigator>
     </PaperProvider>
     </NavigationContainer>
     </Context.Provider>

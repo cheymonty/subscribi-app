@@ -1,10 +1,9 @@
 import React, {useState, useContext} from 'react'
-import { StyleSheet, View, Modal, SafeAreaView} from 'react-native'
-import { Title, FAB, Appbar, IconButton, Headline, Button} from 'react-native-paper'
+import {StyleSheet, View, Modal} from 'react-native'
+import {Title, FAB, Appbar, Headline, Button} from 'react-native-paper'
 import {AddSub} from '../components/AddSub'
 import {StatusBar} from 'expo-status-bar'
 import SubCardList from '../components/SubCardList'
-
 import Context from '../context/Context'
 
 /*Subscriptions object
@@ -37,10 +36,10 @@ export default function Home() {
 
     return (
       <View style={styles(theme).container}>
-           <Appbar.Header style={{backgroundColor: theme.primary}}>
-                <Appbar.Content title="Home" titleStyle={{fontSize: 35, color: theme.headerText}}/>
-                <Appbar.Action icon="sort" color={theme.headerText} onPress={sortSubs} accessibilityLabel="Sort subscriptions"/>
-                <Appbar.Action icon="plus" color={theme.headerText} onPress={showModal}  accessibilityLabel="Add a new subscription"/>
+           <Appbar.Header style={{backgroundColor: "transparent", elevation: 0}}>
+                <Appbar.Action icon="sort" color={theme.primary} onPress={sortSubs} accessibilityLabel="Sort subscriptions"/>
+                <Appbar.Content title="Home" titleStyle={{fontSize: 30, color: theme.primary}}/>
+                <Appbar.Action icon="plus" color={theme.primary} onPress={showModal}  accessibilityLabel="Add a new subscription"/>
             </Appbar.Header>
             
             {/* <Title style={styles(theme).header}>Home</Title> */}
@@ -66,10 +65,10 @@ export default function Home() {
             subscriptions={subscriptions}
         />
 
-        <FAB style={styles(theme).fab} icon="plus" color="white" onPress={showModal}/>
+        <FAB style={styles(theme).fab} icon="plus" color="#ffffff" onPress={showModal}/>
         <StatusBar style={darkMode ? "light" : "dark"}/>
       </View>
-    );
+    )
 }
 
 const styles = (theme) => StyleSheet.create({
@@ -91,7 +90,8 @@ const styles = (theme) => StyleSheet.create({
         margin: 20, 
         right: 0,
         bottom: 0, 
-        backgroundColor: theme.primary
+        backgroundColor: theme.primary,
+        elevation: 5
     }, 
     
     header: {

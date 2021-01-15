@@ -1,31 +1,30 @@
-import React, {createRef} from 'react';
+import React, {createRef, useContext} from 'react';
 import {StyleSheet, View, TouchableOpacity} from 'react-native';
-import {Title, Paragraph, Subheading} from 'react-native-paper';
+import {Title, Subheading} from 'react-native-paper';
 import {dateToString} from '../utils/helpers'
 import {SubCardActions} from './SubCardActions'
-
-//TODO:
-// [] implement press to edit
+import Context from '../context/Context'
 
 
 //has to be a function for correct createRef use
 export default function SubCard({id, name, cost, endDay}) {
     const actionSheetRef = createRef()
+    const {theme} = useContext(Context)
 
     return (
         <View>
             <TouchableOpacity 
-                style={styles.container}
+                style={styles(theme).container}
                 onLongPress={() => actionSheetRef.current?.show()}
                 activeOpacity={0.6}    
             >
                 <View style={{height: "70%"}}>
-                    <Title style={styles.cardTitle}>{name}</Title>
+                    <Title style={styles(theme).cardTitle}>{name}</Title>
                 </View>
                 
                 <View style={{flexDirection: "row"}}>
-                    <Subheading style={styles.cost}>{cost === 0 ? "Free" : `$${cost}`}</Subheading>
-                    <Subheading style={styles.date}>{dateToString(endDay)}</Subheading>
+                    <Subheading style={styles(theme).cost}>{cost === 0 ? "Free" : `$${cost}`}</Subheading>
+                    <Subheading style={styles(theme).date}>{dateToString(endDay)}</Subheading>
                 </View>
             </TouchableOpacity>
 
@@ -39,7 +38,7 @@ export default function SubCard({id, name, cost, endDay}) {
 }
 
 
-const styles = StyleSheet.create({
+const styles = (theme) => StyleSheet.create({
     container: {  
         width: "96%",
         height: 102,
@@ -47,6 +46,8 @@ const styles = StyleSheet.create({
         top: 5,
         borderRadius: 10,
         marginBottom: 15,
+        borderWidth: 2,
+        borderColor: theme.accent,
         backgroundColor: "#ffffff",
         shadowColor: "#000",
         shadowOffset: {
@@ -62,7 +63,7 @@ const styles = StyleSheet.create({
         top:15,
         left: 13,
         fontSize: 30,  
-        color: "#000000" ,
+        color: theme.accent,
         paddingTop: 0.5
     },
 
@@ -79,13 +80,7 @@ const styles = StyleSheet.create({
         width: "50%",
         textAlign: "right",  
     },
-
-    edit: {
-        textAlign: "right",
-        // backgroundColor: "black"
-    },
-
-});
+})
 
 
 

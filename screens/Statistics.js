@@ -1,8 +1,9 @@
 import React, {useContext} from 'react'
 import { StyleSheet, View } from 'react-native'
-import {Text, Headline, Appbar} from 'react-native-paper'
+import {Text, Headline} from 'react-native-paper'
 import MiniCardList from '../components/MiniCardList'
 import Context from '../context/Context'
+import Header from '../components/Header'
 
 export default function Statistics() {
     const {subscriptions, theme} = useContext(Context)
@@ -14,10 +15,7 @@ export default function Statistics() {
 
     return (
         <View style={styles(theme).container}>
-            <Appbar.Header style={{backgroundColor: theme.primary}}>
-                <Appbar.Content titleStyle={{fontSize: 25, color:"white"}} title="Statistics"/>
-            </Appbar.Header>
-
+            <Header title="Statistics"/>
 
             {/* chart part of the screen */}
             <View style={{height: "45%"}}>

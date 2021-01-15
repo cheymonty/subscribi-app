@@ -1,8 +1,8 @@
-import React, {useEffect, useContext} from 'react'
-import { StyleSheet, View} from 'react-native'
-import {Appbar, Divider,Switch, List,Menu,Button} from 'react-native-paper'
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import React, {useContext} from 'react'
+import {StyleSheet, View} from 'react-native'
+import {Divider, Switch, List, Menu, Button} from 'react-native-paper'
 import {timeToString} from '../utils/helpers'
+import Header from '../components/Header'
 
 import Context from '../context/Context'
 
@@ -15,16 +15,6 @@ export default function Settings() {
     const [state, setState] = React.useState({
         allowReminders: true
     })
-
-    useEffect(() => {
-        const check = async() => {
-
-            //TODO: get rid of this line
-            await AsyncStorage.removeItem('@displayTime')
-
-        }
-        check()
-    }, [])
 
     const [allowReminders, setReminders] = React.useState(true)
 
@@ -42,9 +32,7 @@ export default function Settings() {
 
     return (
         <View style={styles(theme).container}>
-            <Appbar.Header style={{backgroundColor: theme.primary}}>
-                <Appbar.Content titleStyle={{fontSize: 25, color:"white"}} title="Settings"/>
-            </Appbar.Header>
+            <Header title="Settings"/>
             <List.Subheader>General</List.Subheader>
 
             <List.Item
