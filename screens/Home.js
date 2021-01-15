@@ -1,6 +1,6 @@
 import React, {useState, useContext} from 'react'
-import {StyleSheet, View, Modal} from 'react-native'
-import {Title, FAB, Appbar, Headline, Button} from 'react-native-paper'
+import {StyleSheet, View} from 'react-native'
+import {FAB, Appbar, Headline} from 'react-native-paper'
 import {AddSub} from '../components/AddSub'
 import {StatusBar} from 'expo-status-bar'
 import SubCardList from '../components/SubCardList'
@@ -26,13 +26,9 @@ export default function Home() {
     
 
     const showModal = () => setModalVisible(true)
+    const closeModal = () => setModalVisible(false)
 
     const {subscriptions, darkMode, sortSubs, theme} = useContext(Context)
-
-
-    function hideDialog() {
-        setModalVisible(false)  
-    }
 
     return (
       <View style={styles(theme).container}>
@@ -43,19 +39,7 @@ export default function Home() {
             </Appbar.Header>
             
             {/* <Title style={styles(theme).header}>Home</Title> */}
-
-        <Modal animationType="slide" visible={modalVisible} onRequestClose={hideDialog} presentationStyle="formSheet">
-            <View style={{backgroundColor: "rgb(242,242,242)", height:"100%"}}>
-
-                <View style={{flexDirection: 'row', backgroundColor: "white"}}>
-                    <Button uppercase={false} style={{ marginTop: 15, width: "25%"}} color="white" labelStyle={{color: "#ff4c4c"}} onPress={hideDialog}>Cancel</Button>  
-                    <Title style={styles(theme).modalTitle}>New Subscription</Title>
-                </View>
-
-                <AddSub/>
-                <Button style={styles(theme).cancelButton} mode="contained" onPress={hideDialog}>Cancel</Button>
-            </View>
-        </Modal>
+        {modalVisible && <AddSub closeModal={closeModal}/>}
 
         {subscriptions.length === 0 && 
             <Headline style={{textAlign: "center"}}>Tap + to add a subscription</Headline>
@@ -77,14 +61,6 @@ const styles = (theme) => StyleSheet.create({
         backgroundColor: theme.background
     },
 
-    modalTitle: {
-        textAlign: "center",
-        color: theme.primary,
-        marginTop: 15,
-        // marginLeft: "10%",    
-        width: "50%" 
-    },
- 
     fab: {
         position: 'absolute',
         margin: 20, 
@@ -105,15 +81,5 @@ const styles = (theme) => StyleSheet.create({
         fontWeight: "bold"
     }, 
 
-    cancelButton: {
-        width: "35%", 
-        // backgroundColor: "rgba(255,0,0,.7)",
-        backgroundColor: "#ff4c4c",
-        borderWidth: 2,
-        // borderColor: "rgba(255,0,0,.7)",
-        borderColor: "#ff4c4c",
-        borderRadius: 20,
-        marginRight: "15%"
-    },
   })
 
