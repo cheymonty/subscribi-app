@@ -157,7 +157,7 @@ export default function App() {
           component={Home}
           options={{
             tabBarIcon: ({focused}) => (
-              <AntDesign name="home" size={25} style={{color: focused? theme.primary : "black"}}/>
+              <AntDesign name="home" size={25} style={{color: focused? theme.primary : theme.inactiveTab}}/>
             ),
           }}/>
 
@@ -167,7 +167,7 @@ export default function App() {
           component={Statistics}
           options={{
             tabBarIcon: ({focused}) => (
-              <AntDesign name="barschart" size={25} style={{color: focused? theme.primary : "black"}}/>
+              <AntDesign name="barschart" size={25} style={{color: focused? theme.primary : theme.inactiveTab}}/>
             ),
           }}/>
 
@@ -177,7 +177,7 @@ export default function App() {
           component={Settings}
           options={{
             tabBarIcon: ({focused}) => (
-              <AntDesign name="setting" size={25} style={{color: focused? theme.primary : "black"}}/>
+              <AntDesign name="setting" size={25} style={{color: focused? theme.primary : theme.inactiveTab}}/>
             )
           }}/>
       </BottomTab.Navigator>

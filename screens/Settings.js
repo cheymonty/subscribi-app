@@ -33,10 +33,11 @@ export default function Settings() {
     return (
         <View style={styles(theme).container}>
             <Header title="Settings"/>
-            <List.Subheader>General</List.Subheader>
+            <List.Subheader style={styles(theme).listHeader}>General</List.Subheader>
 
             <List.Item
                 title="Dark Mode"
+                titleStyle={{color: theme.text, fontSize: 18}}
                 left={props => <List.Icon {...props} color={theme.primary} icon="weather-night"/>}
                 right={_=> <Switch color={theme.accent} onValueChange={toggleDarkMode} value={darkMode}/>}
             />
@@ -44,22 +45,24 @@ export default function Settings() {
 
             <List.Item 
                 title="Reminder Notifications"
+                titleStyle={{color: theme.text, fontSize: 18}}
                 left={props => <List.Icon {...props} color={theme.primary} icon="bell-outline"/>}
                 right={_=> <Switch color={theme.accent} onValueChange={() => setReminders(!allowReminders)} value={allowReminders}/>}
             />
         
 
-            <List.Subheader>Notifications</List.Subheader>
+            <List.Subheader style={styles(theme).listHeader}>Notifications</List.Subheader>
 
           
             <List.Item
                 title="Notification Time"   
+                titleStyle={{color: theme.text, fontSize: 18}}
                 left={props => <List.Icon {...props} color={theme.primary} icon="clock-outline"/>} 
                 right={_ => 
                     <Menu
                         visible={timeMenu}
                         onDismiss={closeTimeMenu}
-                        anchor={<Button icon="arrow-down" onPress={() => setTimeMenu(!timeMenu)} contentStyle={{flexDirection: "row-reverse"}}>{timeToString(timeOfNotification)}</Button>}
+                        anchor={<Button icon="arrow-down" onPress={() => setTimeMenu(!timeMenu)} color={theme.accent} contentStyle={{flexDirection: "row-reverse"}}>{timeToString(timeOfNotification)}</Button>}
                     >
                         <Menu.Item onPress={() => {setTime(6)}} title="6:00 AM"/>
                         <Menu.Item onPress={() => {setTime(9)}} title="9:00 AM"/>
@@ -79,6 +82,11 @@ export default function Settings() {
 const styles = (theme) => StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor:theme.background
+        backgroundColor: theme.background
     },     
-  })
+
+    listHeader: {
+        color: theme.listHeader,
+        fontSize: 20
+    },
+})

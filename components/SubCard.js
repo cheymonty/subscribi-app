@@ -46,10 +46,10 @@ const styles = (theme) => StyleSheet.create({
         top: 5,
         borderRadius: 10,
         marginBottom: 15,
-        borderWidth: 2,
-        borderColor: theme.accent,
+        // borderWidth: 2,
+        // borderColor: theme.accent,
         backgroundColor: "#ffffff",
-        shadowColor: "#000",
+        shadowColor: theme.shadow,
         shadowOffset: {
 	        width: 0,
 	        height: 5,
@@ -63,13 +63,15 @@ const styles = (theme) => StyleSheet.create({
         top:15,
         left: 13,
         fontSize: 30,  
-        color: theme.accent,
+        // color: theme.accent,
+        color: "#000",
         paddingTop: 0.5
     },
 
     cost: {
         left:13,
-        color: "#000000",
+        // color: "#000000",
+        color: theme.accent,
         width: "50%",  
     },
 

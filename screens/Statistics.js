@@ -19,8 +19,8 @@ export default function Statistics() {
 
             {/* chart part of the screen */}
             <View style={{height: "45%"}}>
-                {subscriptions.length !== 0 && <Headline style={{textAlign: "center"}}>Tap a subscription for stats</Headline>}
-                {subscriptions.length === 0 && <Headline style={{textAlign: "center"}}>Add subcriptions to see your charts</Headline>}
+                {subscriptions.length !== 0 && <Headline style={{textAlign: "center", color: theme.text}}>Tap a subscription for stats</Headline>}
+                {subscriptions.length === 0 && <Headline style={{textAlign: "center", color: theme.text}}>Add subcriptions to see your charts</Headline>}
             </View>
 
 

@@ -42,14 +42,14 @@ export default function Home() {
         {modalVisible && <AddSub closeModal={closeModal}/>}
 
         {subscriptions.length === 0 && 
-            <Headline style={{textAlign: "center"}}>Tap + to add a subscription</Headline>
+            <Headline style={{textAlign: "center", color: theme.text}}>Tap + to add a subscription</Headline>
         }
 
         <SubCardList
             subscriptions={subscriptions}
         />
 
-        <FAB style={styles(theme).fab} icon="plus" color="#ffffff" onPress={showModal}/>
+        <FAB style={styles(theme).fab} icon="plus" color={theme.background} onPress={showModal}/>
         <StatusBar style={darkMode ? "light" : "dark"}/>
       </View>
     )
@@ -67,7 +67,8 @@ const styles = (theme) => StyleSheet.create({
         right: 0,
         bottom: 0, 
         backgroundColor: theme.primary,
-        elevation: 5
+        elevation: 5,
+        shadowColor: theme.shadow
     }, 
     
     header: {
