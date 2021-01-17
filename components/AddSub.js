@@ -1,5 +1,5 @@
 import React, {useState, useContext} from 'react'
-import { StyleSheet, TextInput, View, Keyboard, Modal} from 'react-native'
+import { StyleSheet, TextInput, View, Keyboard, Modal, Platform} from 'react-native'
 import { Button, Paragraph, Title} from 'react-native-paper'
 import DateTimePicker from '@react-native-community/datetimepicker'
 import SegmentedPicker from 'react-native-segmented-picker'
@@ -15,8 +15,8 @@ export const AddSub = ({closeModal}) => {
     const [name, setName] = useState('')
     const [cost, setCost] = useState(0)
     const [startDate, setStartDate] = useState(new Date())
-    const [startDateDialog, setStartDateDialog] = useState(false)
-    const [pickerVisible, setPickerVisible] = useState(false)
+    const [startDatePicker, setStartDatePicker] = useState(false)
+    const [durationPicker, setDurationPicker] = useState(false)
     const [duration, setDuration] = useState("1 days")
 
     const {addSub, theme, timeOfNotification} = useContext(Context)
@@ -52,13 +52,19 @@ export const AddSub = ({closeModal}) => {
     }
 
     function startButton() {
-        setStartDateDialog(!startDateDialog)
+        setStartDatePicker(!startDatePicker)
         Keyboard.dismiss()
     }
 
     function pickerButton() {
-        setPickerVisible(true)
+        setDurationPicker(true)
         Keyboard.dismiss()
+    }
+
+    function saveStartDate(date) {
+        let picked = date || startDate
+        setStartDatePicker(Platform.OS === 'ios')
+        setStartDate(picked)
     }
 
     return (
@@ -76,6 +82,7 @@ export const AddSub = ({closeModal}) => {
                         style={styles(theme).nameInput} 
                         maxLength={25}
                         placeholder="Subscription Name" 
+                        onFocus={() => setStartDatePicker(false)}
                         onChangeText={name => setName(name)}
                         onSubmitEditing={(e) => setName(e.nativeEvent.text)} 
                         underlineColorAndroid="transparent"
@@ -87,29 +94,33 @@ export const AddSub = ({closeModal}) => {
                         keyboardType="numeric"
                         maxLength={6}
                         placeholder="Price" 
+                        onFocus={() => setStartDatePicker(false)}
                         onChangeText={price => setCost(Number(price))}
                         onSubmitEditing={(e) => setCost(Number(e.nativeEvent.text))} 
                         underlineColorAndroid="transparent"
                     />
 
+                    <View style={{flexDirection: "row"}}>
                     <Paragraph style={{fontWeight: "bold"}}>Subscription Start</Paragraph>
-                    <Button color={theme.primary} uppercase={false} onPress={startButton} style={styles(theme).startDate}>Start Date: {dateToString(startDate)}</Button>
-
-                    {/* TODO: need to fix android, setStartDate is only fired when okay is pressed. On ios it is called after every spin */}
-                    {startDateDialog && <DateTimePicker mode="date" display="spinner" value={startDate} onChange={(e, d) => setStartDate(d)}/>}
+                    <Button color={theme.primary} uppercase={false} onPress={startButton} style={styles(theme).startDate}>{dateToString(startDate)}</Button>
+                    </View>
+        
+                    {startDatePicker && 
+                        <DateTimePicker mode="date" display="spinner" value={startDate} onChange={(_, d) => saveStartDate(d)} minimumDate={new Date(2000,0,1)}/>
+                    }
 
 
                     <Paragraph style={{fontWeight: "bold"}}>Duration</Paragraph>
-                    <Button uppercase={false} icon="arrow-down" contentStyle={{flexDirection: "row-reverse"}} color="black" onPress={pickerButton}>Select duration: {duration}</Button>
+                    <Button uppercase={false} icon="arrow-down" contentStyle={{flexDirection: "row-reverse"}} color="black" onPress={pickerButton}>{duration}</Button>
                     <SegmentedPicker
-                        visible={pickerVisible}
+                        visible={durationPicker}
                         onConfirm={selections => {
                             setDuration(`${selections.col_1} ${selections.col_2}`)
-                            setPickerVisible(false)
+                            setDurationPicker(false)
                         }}
                         onCancel={selections => {
                             setDuration(`${selections.col_1} ${selections.col_2}`)
-                            setPickerVisible(false)
+                            setDurationPicker(false)
                         }}
                         confirmText="Done"
                         options={constants.PICKER_OPTIONS}    
@@ -165,7 +176,7 @@ const styles = (theme) => StyleSheet.create({
     },
     
     startDate: {
-        width: "70%", 
+        // width: "95%", 
         // marginLeft: "15%"
        
     }, 
