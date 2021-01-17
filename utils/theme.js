@@ -3,10 +3,10 @@ const lightTheme = {
     // primary: "#77e6a0",
     background: "#f6f6f6",
     // accent: "#4aaade",
-    accent: "#ed6688",
+    accent: "#668aed",
     headerText: "#ffffff",
     inactiveTab: "#000000",
-    listHeader: "rgba(0,0,0,.54)",
+    subHeader: "rgba(0,0,0,.54)",
     text: "rgba(0,0,0,.87)",
     shadow: "#000000"
 }
@@ -14,10 +14,10 @@ const lightTheme = {
 const darkTheme = {
     primary: "#77e6a0",
     background: "#0f0b1f",
-    accent: "#b4a9e0",
+    accent: "#ed6688",
     headerText: "#ffffff",
     inactiveTab: "#ffffff",
-    listHeader: "#ffffff",
+    subHeader: "#ffffff",
     text: "rgba(255,255,255,.87)",
     shadow: "#ffffff"
 }

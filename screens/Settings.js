@@ -33,7 +33,7 @@ export default function Settings() {
     return (
         <View style={styles(theme).container}>
             <Header title="Settings"/>
-            <List.Subheader style={styles(theme).listHeader}>General</List.Subheader>
+            <List.Subheader style={styles(theme).subHeader}>General</List.Subheader>
 
             <List.Item
                 title="Dark Mode"
@@ -51,7 +51,7 @@ export default function Settings() {
             />
         
 
-            <List.Subheader style={styles(theme).listHeader}>Notifications</List.Subheader>
+            <List.Subheader style={styles(theme).subHeader}>Notifications</List.Subheader>
 
           
             <List.Item
@@ -85,8 +85,8 @@ const styles = (theme) => StyleSheet.create({
         backgroundColor: theme.background
     },     
 
-    listHeader: {
-        color: theme.listHeader,
+    subHeader: {
+        color: theme.subHeader,
         fontSize: 20
     },
 })
