@@ -101,16 +101,22 @@ export default function App() {
     }
   }
 
-  const [darkMode, setDarkMode] = useState(false)
+  const [darkMode, setDarkMode] = useState(async () => {
+    let d = await AsyncStorage.getItem("@darkMode")
+    JSON.parse(d) ? setDarkMode(true) : setDarkMode(false)
+  })
   const toggleDarkMode = () => {
-    //TODO: put current darkMode boolean in asyncstorage
     setDarkMode(!darkMode)
+    updateStorage("@darkMode", !darkMode)
     toggleTheme(!darkMode)
   }
 
-  const [theme, setTheme] = useState(lightTheme)
-  const toggleTheme = (darkMode) => {
-    if (darkMode)
+  const [theme, setTheme] = useState(async () => {
+    let d = await AsyncStorage.getItem("@darkMode")
+    JSON.parse(d) ? setTheme(darkTheme) : setTheme(lightTheme)
+  })
+  const toggleTheme = (d) => {
+    if (d)
       setTheme(darkTheme)
     else
       setTheme(lightTheme)
