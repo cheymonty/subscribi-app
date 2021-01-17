@@ -21,16 +21,8 @@ export const AddSub = ({closeModal}) => {
 
     const {addSub, theme, timeOfNotification} = useContext(Context)
 
+    //structure newSub
     function submit() {
-        //structuring newSub
-
-        //TODO: if duration button isnt clicked at all, duration ends up being "" and
-        //setDuration doesnt fire in time
-        // if (duration.length === 0) {
-        //     console.log("got here")
-        //     setDuration("1 days")
-        // }
-
         let endDate = getEndDate(startDate, duration)
         let key = `${Math.floor(Math.random() * 1000)}-${name}`
 

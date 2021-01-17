@@ -16,7 +16,7 @@ export default function SubCard({id, name, cost, endDay}) {
             <TouchableOpacity 
                 style={styles(theme).container}
                 onLongPress={() => actionSheetRef.current?.show()}
-                activeOpacity={0.6}    
+                activeOpacity={0.4}    
             >
                 <View style={{height: "70%"}}>
                     <Title style={styles(theme).cardTitle}>{name}</Title>
@@ -41,22 +41,22 @@ export default function SubCard({id, name, cost, endDay}) {
 const styles = (theme) => StyleSheet.create({
     container: {  
         width: "96%",
-        height: 102,
+        height: 90,
         left: "2%",
         top: 5,
         borderRadius: 10,
         marginBottom: 15,
-        // borderWidth: 2,
-        // borderColor: theme.accent,
-        backgroundColor: "#ffffff",
-        shadowColor: theme.shadow,
-        shadowOffset: {
-	        width: 0,
-	        height: 5,
-        },
-        shadowOpacity: 0.30,
-        shadowRadius: 4.65,
-        elevation: 8,
+        borderWidth: 2,
+        borderColor: theme.accent,
+        backgroundColor: "transparent",
+        // shadowColor: theme.shadow,
+        // shadowOffset: {
+	    //     width: 0,
+	    //     height: 5,
+        // },
+        // shadowOpacity: 0.30,
+        // shadowRadius: 4.65,
+        // elevation: 8,
     },
 
     cardTitle: {
@@ -64,7 +64,7 @@ const styles = (theme) => StyleSheet.create({
         left: 13,
         fontSize: 30,  
         // color: theme.accent,
-        color: "#000",
+        color: theme.text,
         paddingTop: 0.5
     },
 
@@ -76,7 +76,7 @@ const styles = (theme) => StyleSheet.create({
     },
 
     date: {
-        color: "#000000",
+        color: theme.text,
         fontWeight:"bold",
         right : 13,
         width: "50%",
