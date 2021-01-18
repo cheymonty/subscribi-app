@@ -1,6 +1,6 @@
 import React, {useState, useContext} from 'react'
 import { StyleSheet, TextInput, View, Keyboard, Modal, Platform} from 'react-native'
-import { Button, Paragraph, Title} from 'react-native-paper'
+import { Button, Paragraph, Title, List} from 'react-native-paper'
 import DateTimePicker from '@react-native-community/datetimepicker'
 import SegmentedPicker from 'react-native-segmented-picker'
 import constants from '../utils/constants'
@@ -67,7 +67,7 @@ export const AddSub = ({closeModal}) => {
                 <Title style={styles(theme).modalTitle}>New Subscription</Title>
             </View>
 
-            <View style={{backgroundColor: "rgb(242,242,242)", height: "100%"}}>
+            {/* <View style={{backgroundColor: "rgb(242,242,242)", height: "100%"}}>
                 <View style={{marginLeft: "5%"}}>
                     <Paragraph style={{fontWeight: "bold"}}>Subscription Name</Paragraph>
                     <TextInput 
@@ -121,7 +121,69 @@ export const AddSub = ({closeModal}) => {
                 
                     <Button style={styles(theme).doneButton} disabled={name.length > 0 ? false : true} mode="contained" onPress={submit}>Done</Button>
                 </View>
-            </View>
+            </View> */}
+            <List.Item
+                style={{marginBottom: "3%"}}
+                title="Name"
+                titleStyle={{color: theme.text, fontSize: 18}}
+                right={_=> <TextInput 
+                    style={styles(theme).nameInput} 
+                    maxLength={20}
+                    placeholder="Subscription Name" 
+                    onFocus={() => setStartDatePicker(false)}
+                    onChangeText={name => setName(name)}
+                    onSubmitEditing={(e) => setName(e.nativeEvent.text)} 
+                    underlineColorAndroid="transparent"
+                />}
+            />
+
+            <List.Item
+                style={{marginBottom: "3%"}}
+                title="Price ($)"
+                titleStyle={{color: theme.text, fontSize: 18}}
+                right={_=> <TextInput 
+                    style={styles(theme).costInput} 
+                    keyboardType="numeric"
+                    maxLength={6}
+                    placeholder="Price" 
+                    onFocus={() => setStartDatePicker(false)}
+                    onChangeText={price => setCost(Number(price))}
+                    onSubmitEditing={(e) => setCost(Number(e.nativeEvent.text))} 
+                    underlineColorAndroid="transparent"
+                />}
+            />
+
+            <List.Item
+                style={{marginBottom: "3%"}}
+                title="Start Date"
+                titleStyle={{color: theme.text, fontSize: 18}}
+                right={_=> <Button color={theme.primary} uppercase={false} onPress={startButton} style={styles(theme).startDate}>{dateToString(startDate)}</Button>}
+            />
+            {startDatePicker && 
+                <DateTimePicker mode="date" display="spinner" value={startDate} onChange={(_, d) => saveStartDate(d)} minimumDate={new Date(2000,0,1)}/>
+            }
+
+            <List.Item
+                style={{marginBottom: "3%"}}
+                title="Duration"
+                titleStyle={{color: theme.text, fontSize: 18}}
+                right={_=> <Button uppercase={false} icon="arrow-down" contentStyle={{flexDirection: "row-reverse"}} color="black" onPress={pickerButton}>{duration}</Button>}
+            />
+
+            <SegmentedPicker
+                visible={durationPicker}
+                onConfirm={selections => {
+                    setDuration(`${selections.col_1} ${selections.col_2}`)
+                    setDurationPicker(false)
+                }}
+                onCancel={selections => {
+                    setDuration(`${selections.col_1} ${selections.col_2}`)
+                    setDurationPicker(false)
+                }}
+                confirmText="Done"
+                options={constants.PICKER_OPTIONS}    
+            />
+            <Button style={styles(theme).doneButton} disabled={name.length > 0 ? false : true} mode="contained" onPress={submit}>Done</Button>
             <StatusBar style={Platform.isPad? "dark" : "light"}/>
         </Modal>
     )
@@ -139,37 +201,55 @@ const styles = (theme) => StyleSheet.create({
         // fontSize: 20,
         // left: 20,
         // marginTop: 15,
-        backgroundColor: "white",
-        textAlign: "center",
-        height: 50,
-        fontSize: 15,
-        borderWidth: 2,
-        // borderColor: theme.accent,
-        borderColor: theme.primary,
-        borderRadius: 10,
-        width: "80%",
-        // marginLeft: "10%",
-        marginBottom: "8%"
-        
+        // backgroundColor: "white",
+        // textAlign: "center",
+        // height: 50,
+        // fontSize: 15,
+        // borderWidth: 2,
+        // // borderColor: theme.accent,
+        // borderColor: theme.primary,
+        // borderRadius: 10,
+        // width: "80%",
+        // // marginLeft: "10%",
+        // marginBottom: "8%"
+        // height: 50,
+        width: "55%",
+        textAlign: "right",
+        // borderWidth: StyleSheet.hairlineWidth,
+        // borderColor: "#bab7c3",
+        // borderRadius: 30,
+        paddingHorizontal: 16,
+        color: "#514e5a",
+        fontWeight: "600"
     },
 
     costInput: {
-        backgroundColor: "white",
-        textAlign: "center",
-        height: 50,
-        fontSize: 15,
-        borderWidth: 2,
-        // borderColor: "#ccd5ff",
-        borderColor: theme.primary,
-        borderRadius: 10,
-        width: "20%",
-        // marginLeft: "10%",
-        marginBottom: "8%"
+        // backgroundColor: "white",
+        // textAlign: "center",
+        // height: 50,
+        // fontSize: 15,
+        // borderWidth: 2,
+        // // borderColor: "#ccd5ff",
+        // borderColor: theme.primary,
+        // borderRadius: 10,
+        // width: "20%",
+        // // marginLeft: "10%",
+        // marginBottom: "8%"
+        // height: 50,
+        width: "30%",
+        // borderWidth: StyleSheet.hairlineWidth,
+        // borderColor: "#bab7c3",
+        // borderRadius: 30,
+        paddingHorizontal: 16,
+        color: "#514e5a",
+        textAlign: "right",
+        fontWeight: "600"
     },
     
     startDate: {
         // width: "95%", 
         // marginLeft: "15%"
+        marginTop: -5
        
     }, 
 
