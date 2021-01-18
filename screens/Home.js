@@ -18,8 +18,6 @@ import Context from '../context/Context'
 
 */
 
-// TODO:
-//     [] Dark mode makes things white, maybe explicitly give things the black/gray color
 export default function Home() {
 
     const [modalVisible, setModalVisible] = useState(false);
@@ -38,11 +36,10 @@ export default function Home() {
                 <Appbar.Action icon="plus" color={theme.primary} onPress={showModal}  accessibilityLabel="Add a new subscription"/>
             </Appbar.Header>
             
-            {/* <Title style={styles(theme).header}>Home</Title> */}
         {modalVisible && <AddSub closeModal={closeModal}/>}
 
         {subscriptions.length === 0 && 
-            <Headline style={{textAlign: "center", color: theme.text}}>Tap + to add a subscription</Headline>
+            <Headline style={{textAlign: "center", color: theme.text, top: "35%"}}>Tap + to add a subscription</Headline>
         }
 
         <SubCardList
@@ -70,17 +67,5 @@ const styles = (theme) => StyleSheet.create({
         elevation: 5,
         shadowColor: theme.shadow
     }, 
-    
-    header: {
-        // marginTop:20,
-        // color: "#ff8883", 
-        // color: theme.primary,
-        color: "white",
-        fontSize: 35, 
-        left:13,
-        textAlign:"left",
-        fontWeight: "bold"
-    }, 
-
   })
 

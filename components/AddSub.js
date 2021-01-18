@@ -72,7 +72,7 @@ export const AddSub = ({closeModal}) => {
                     <Paragraph style={{fontWeight: "bold"}}>Subscription Name</Paragraph>
                     <TextInput 
                         style={styles(theme).nameInput} 
-                        maxLength={25}
+                        maxLength={20}
                         placeholder="Subscription Name" 
                         onFocus={() => setStartDatePicker(false)}
                         onChangeText={name => setName(name)}
@@ -122,7 +122,7 @@ export const AddSub = ({closeModal}) => {
                     <Button style={styles(theme).doneButton} disabled={name.length > 0 ? false : true} mode="contained" onPress={submit}>Done</Button>
                 </View>
             </View>
-            <StatusBar style="light"/>
+            <StatusBar style={Platform.isPad? "dark" : "light"}/>
         </Modal>
     )
 }

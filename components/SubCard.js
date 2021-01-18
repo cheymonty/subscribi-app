@@ -41,7 +41,7 @@ export default function SubCard({id, name, cost, endDay}) {
 const styles = (theme) => StyleSheet.create({
     container: {  
         width: "96%",
-        height: 90,
+        height: 85,
         left: "2%",
         top: 5,
         borderRadius: 10,
@@ -60,7 +60,7 @@ const styles = (theme) => StyleSheet.create({
     },
 
     cardTitle: {
-        top:15,
+        top:10,
         left: 13,
         fontSize: 30,  
         // color: theme.accent,
@@ -72,6 +72,7 @@ const styles = (theme) => StyleSheet.create({
         left:13,
         // color: "#000000",
         color: theme.accent,
+        fontWeight: "bold",
         width: "50%",  
     },
 
