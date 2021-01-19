@@ -80,7 +80,7 @@ export const AddSub = React.forwardRef(({}, ref) => {
                     <TextInput 
                         style={styles(theme).nameInput} 
                         maxLength={20}
-                        placeholder="_______" 
+                        placeholder="Enter name" 
                         placeholderTextColor={theme.text}
                         onFocus={() => setStartDatePicker(false)}
                         onChangeText={name => setName(name)}
@@ -99,7 +99,7 @@ export const AddSub = React.forwardRef(({}, ref) => {
                         style={styles(theme).costInput} 
                         keyboardType="numeric"
                         maxLength={6}
-                        placeholder="$" 
+                        placeholder="$"
                         returnKeyType='done' 
                         placeholderTextColor={theme.text}
                         onFocus={() => setStartDatePicker(false)}

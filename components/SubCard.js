@@ -7,7 +7,7 @@ import Context from '../context/Context'
 
 
 //has to be a function for correct createRef use
-export default function SubCard({id, name, cost, endDay}) {
+export default function SubCard({sub}) {
     const actionSheetRef = createRef()
     const {theme} = useContext(Context)
 
@@ -19,19 +19,18 @@ export default function SubCard({id, name, cost, endDay}) {
                 activeOpacity={0.4}    
             >
                 <View style={{height: "70%"}}>
-                    <Title style={styles(theme).cardTitle}>{name}</Title>
+                    <Title style={styles(theme).cardTitle}>{sub.name}</Title>
                 </View>
                 
                 <View style={{flexDirection: "row"}}>
-                    <Subheading style={styles(theme).cost}>{cost === 0 ? "Free" : `$${cost}`}</Subheading>
-                    <Subheading style={styles(theme).date}>{dateToString(endDay)}</Subheading>
+                    <Subheading style={styles(theme).cost}>{sub.cost === 0 ? "Free" : `$${sub.cost}`}</Subheading>
+                    <Subheading style={styles(theme).date}>{dateToString(sub.endDay)}</Subheading>
                 </View>
             </TouchableOpacity>
 
             <SubCardActions
                 ref={actionSheetRef}
-                name={name}
-                id={id}
+                sub={sub}
             />
         </View>
     )
