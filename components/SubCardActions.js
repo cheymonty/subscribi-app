@@ -9,9 +9,9 @@ import Context from '../context/Context'
 export const SubCardActions = React.forwardRef(({name, id}, ref) => {
     const {deleteSub, theme} = useContext(Context)
     return (
-        <ActionSheet ref={ref} bounceOnOpen gestureEnabled>
+        <ActionSheet ref={ref} bounceOnOpen gestureEnabled containerStyle={{backgroundColor: theme.modal}}>
              
-            <Title style={styles.sheetTitle}>{name}</Title>
+            <Title style={styles(theme).sheetTitle}>{name}</Title>
 
             <List.Item
                 title="Delete subscription"
@@ -23,11 +23,11 @@ export const SubCardActions = React.forwardRef(({name, id}, ref) => {
             
             <List.Item
                 title="Edit subscription"
-                titleStyle={{fontSize: 20}}
+                titleStyle={{fontSize: 20, color: theme.text}}
                 left={props => <List.Icon {...props} color={theme.primary} icon="pencil-outline"/>}
             />
                 
-            <Button style={styles.cancelButton} labelStyle={{color: "black", fontWeight: "bold"}} mode="contained" onPress={_ => ref.current?.hide()}>Cancel</Button>     
+            <Button style={styles(theme).cancelButton} labelStyle={{color: "black", fontWeight: "bold"}} mode="contained" onPress={_ => ref.current?.hide()}>Cancel</Button>     
             
         </ActionSheet>
     )
@@ -35,13 +35,14 @@ export const SubCardActions = React.forwardRef(({name, id}, ref) => {
 
 
 
-const styles = StyleSheet.create({
+const styles = (theme) => StyleSheet.create({
   
     sheetTitle: {
         textAlign: "center", 
         fontSize: 30, 
         marginTop: "2%",
-        paddingTop: 0.5
+        paddingTop: 0.5,
+        color: theme.text
     },
 
     cancelButton: {

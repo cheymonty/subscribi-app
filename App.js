@@ -79,6 +79,7 @@ export default function App() {
     let s = [...subscriptions]
     s.unshift(sub)
     updateStorage("@subscriptions", s)
+    LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut)
     setSubs(s)
   }
 

@@ -1,4 +1,4 @@
-import React, {useState, useContext} from 'react'
+import React, {useContext, createRef} from 'react'
 import {StyleSheet, View} from 'react-native'
 import {FAB, Appbar, Headline} from 'react-native-paper'
 import {AddSub} from '../components/AddSub'
@@ -15,16 +15,10 @@ import Context from '../context/Context'
     duration: String
     endDay: Date,
 }
-
 */
 
 export default function Home() {
-
-    const [modalVisible, setModalVisible] = useState(false);
-    
-
-    const showModal = () => setModalVisible(true)
-    const closeModal = () => setModalVisible(false)
+    const actionSheetRef = createRef()
 
     const {subscriptions, darkMode, sortSubs, theme} = useContext(Context)
 
@@ -33,21 +27,21 @@ export default function Home() {
            <Appbar.Header style={{backgroundColor: "transparent", elevation: 0}}>
                 <Appbar.Action icon="sort" color={theme.primary} onPress={sortSubs} accessibilityLabel="Sort subscriptions"/>
                 <Appbar.Content title="Home" titleStyle={{fontSize: 30, color: theme.primary}}/>
-                <Appbar.Action icon="plus" color={theme.primary} onPress={showModal}  accessibilityLabel="Add a new subscription"/>
+                <Appbar.Action icon="plus" color={theme.primary} onPress={() => actionSheetRef.current?.show()}  accessibilityLabel="Add a new subscription"/>
             </Appbar.Header>
             
-        {modalVisible && <AddSub closeModal={closeModal}/>}
 
-        {subscriptions.length === 0 && 
-            <Headline style={{textAlign: "center", color: theme.text, top: "35%"}}>Tap + to add a subscription</Headline>
-        }
+            <AddSub ref={actionSheetRef}/>
 
-        <SubCardList
-            subscriptions={subscriptions}
-        />
+            {subscriptions.length === 0 && 
+                <Headline style={{textAlign: "center", color: theme.text, top: "35%"}}>Tap + to add a subscription</Headline>
+            }
 
-        <FAB style={styles(theme).fab} icon="plus" color={theme.background} onPress={showModal}/>
-        <StatusBar style={darkMode ? "light" : "dark"}/>
+            <SubCardList subscriptions={subscriptions}/>
+
+            <FAB style={styles(theme).fab} icon="plus" color={theme.background} onPress={() => actionSheetRef.current?.show()}/>
+       
+            <StatusBar style={darkMode ? "light" : "dark"}/>
       </View>
     )
 }
