@@ -81,7 +81,7 @@ export const AddSub = React.forwardRef(({}, ref) => {
                         style={styles(theme).nameInput} 
                         maxLength={20}
                         placeholder="Enter name" 
-                        placeholderTextColor={theme.text}
+                        placeholderTextColor={theme.lightText}
                         onFocus={() => setStartDatePicker(false)}
                         onChangeText={name => setName(name)}
                         onSubmitEditing={(e) => setName(e.nativeEvent.text)} 
@@ -101,7 +101,7 @@ export const AddSub = React.forwardRef(({}, ref) => {
                         maxLength={6}
                         placeholder="$"
                         returnKeyType='done' 
-                        placeholderTextColor={theme.text}
+                        placeholderTextColor={theme.lightText}
                         onFocus={() => setStartDatePicker(false)}
                         onChangeText={price => setCost(Number(price))}
                         onSubmitEditing={(e) => setCost(Number(e.nativeEvent.text))} 

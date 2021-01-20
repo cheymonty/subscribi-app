@@ -8,7 +8,8 @@ const lightTheme = {
     subHeader: "rgba(0,0,0,.54)",
     text: "rgba(0,0,0,.87)",
     shadow: "#000000",
-    modal: "#ffffff"
+    modal: "#ffffff",
+    lightText: "#c7c7c7"
 }
 
 const darkTheme = {
@@ -20,7 +21,8 @@ const darkTheme = {
     subHeader: "#ffffff",
     text: "rgba(255,255,255,.87)",
     shadow: "#ffffff",
-    modal: "#303136"
+    modal: "#303136",
+    lightText: "rgba(199, 199, 199, .5)"
 }
 
-export {darkTheme, lightTheme}
+export {lightTheme, darkTheme}
