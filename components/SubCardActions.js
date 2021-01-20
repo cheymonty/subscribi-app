@@ -41,7 +41,7 @@ const styles = (theme) => StyleSheet.create({
         textAlign: "center", 
         fontSize: 30, 
         marginTop: "2%",
-        paddingTop: 0.5,
+        paddingTop: 2,
         color: theme.text
     },
 
@@ -52,8 +52,7 @@ const styles = (theme) => StyleSheet.create({
         borderWidth: 2,
         borderColor: "#DCDCDC",
         borderRadius: 20,
-        marginLeft: "15%",
-        
+        marginLeft: "15%",       
     },
 
 })

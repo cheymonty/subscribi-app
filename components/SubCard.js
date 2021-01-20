@@ -48,14 +48,6 @@ const styles = (theme) => StyleSheet.create({
         borderWidth: 2,
         borderColor: theme.accent,
         backgroundColor: "transparent",
-        // shadowColor: theme.shadow,
-        // shadowOffset: {
-	    //     width: 0,
-	    //     height: 5,
-        // },
-        // shadowOpacity: 0.30,
-        // shadowRadius: 4.65,
-        // elevation: 8,
     },
 
     cardTitle: {
@@ -64,7 +56,7 @@ const styles = (theme) => StyleSheet.create({
         fontSize: 30,  
         // color: theme.accent,
         color: theme.text,
-        paddingTop: 0.5
+        paddingTop: 2
     },
 
     cost: {

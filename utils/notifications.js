@@ -14,12 +14,20 @@ async function createNotification(name, endDate, timeOfNotification) {
             title: `${name} is recurring soon!`,
             body: `Your ${name} subscription is about to recur`,
             data: { data: 'goes here' },
-            },
-            trigger: noti,
+        },
+        trigger: noti,
     })
 
     //TODO: Just for testing
     Notifications.cancelAllScheduledNotificationsAsync()
 }
 
-export {createNotification}
+async function changeNotifications(subs, timeOfNotification) {
+    Notifications.cancelAllScheduledNotificationsAsync()
+
+    for (let i = 0; i < subs.length; i++) {
+        await createNotification(subs[i].name, subs[i].endDay, timeOfNotification)
+    }
+}
+
+export {createNotification, changeNotifications}

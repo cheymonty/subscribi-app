@@ -179,11 +179,12 @@ const styles = (theme) => StyleSheet.create({
     },
 
     nameInput: {
-        width: "55%",
+        width: "75%",
         textAlign: "right",
         paddingHorizontal: 13,
         color: theme.accent,  
-        fontSize: 18
+        fontSize: 18,
+        fontWeight: "500"
     },
 
     costInput: {
@@ -191,7 +192,8 @@ const styles = (theme) => StyleSheet.create({
         paddingHorizontal: 13,
         textAlign: "right",
         color: theme.accent,
-        fontSize: 18
+        fontSize: 18,
+        fontWeight: "500"
     },
 
     doneButton: {

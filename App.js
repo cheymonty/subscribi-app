@@ -15,6 +15,7 @@ import constants from './utils/constants'
 import {lightTheme, darkTheme} from './utils/theme'
 import {updateStorage} from './utils/storage'
 import {reviveDate} from './utils/helpers'
+import {changeNotifications} from './utils/notifications'
 
 import Context from './context/Context'
 
@@ -131,6 +132,7 @@ export default function App() {
   const setNotiTime = (hour) => {
     setTime(hour)
     updateStorage("@timeOfNotification", hour)
+    changeNotifications(subscriptions, hour)
   }
 
 
