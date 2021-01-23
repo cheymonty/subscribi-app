@@ -5,6 +5,7 @@ import {AddSub} from '../components/AddSub'
 import {StatusBar} from 'expo-status-bar'
 import SubCardList from '../components/SubCardList'
 import Context from '../context/Context'
+import Constants from 'expo-constants'
 
 /*Subscriptions object
 {
@@ -24,7 +25,7 @@ export default function Home() {
 
     return (
       <View style={styles(theme).container}>
-           <Appbar.Header style={{backgroundColor: "transparent", elevation: 0}}>
+           <Appbar.Header statusBarHeight={Constants.statusBarHeight} style={{backgroundColor: "transparent", elevation: 0}}>
                 <Appbar.Action icon="sort" color={theme.primary} onPress={sortSubs} accessibilityLabel="Sort subscriptions"/>
                 <Appbar.Content title="Home" titleStyle={{fontSize: 30, color: theme.primary}}/>
                 <Appbar.Action icon="plus" color={theme.primary} onPress={() => actionSheetRef.current?.show()}  accessibilityLabel="Add a new subscription"/>

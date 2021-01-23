@@ -62,6 +62,7 @@ export default function Settings() {
                     <Menu
                         visible={timeMenu}
                         onDismiss={closeTimeMenu}
+                        contentStyle={{backgroundColor: theme.modal}}
                         anchor={
                             <DropButton
                                 uppercase
@@ -73,12 +74,12 @@ export default function Settings() {
                             </DropButton>
                         }
                     >
-                        <Menu.Item onPress={() => {setTime(6)}} title="6:00 AM"/>
-                        <Menu.Item onPress={() => {setTime(9)}} title="9:00 AM"/>
-                        <Divider />
-                        <Menu.Item onPress={() => {setTime(12)}} title="12:00 PM"/>
-                        <Menu.Item onPress={() => {setTime(15)}} title="3:00 PM"/>
-                        <Menu.Item onPress={() => {setTime(18)}} title="6:00 PM"/>
+                        <Menu.Item onPress={() => {setTime(6)}} title="6:00 AM" titleStyle={{color: theme.text}}/>
+                        <Menu.Item onPress={() => {setTime(9)}} title="9:00 AM" titleStyle={{color: theme.text}}/>
+                        <Divider style={{backgroundColor: theme.lightText}}/>
+                        <Menu.Item onPress={() => {setTime(12)}} title="12:00 PM" titleStyle={{color: theme.text}}/>
+                        <Menu.Item onPress={() => {setTime(15)}} title="3:00 PM" titleStyle={{color: theme.text}}/>
+                        <Menu.Item onPress={() => {setTime(18)}} title="6:00 PM" titleStyle={{color: theme.text}}/>
                     </Menu>        
                 }
             />

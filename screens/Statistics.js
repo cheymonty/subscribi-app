@@ -1,6 +1,6 @@
 import React, {useContext} from 'react'
-import { StyleSheet, View, Dimensions, ScrollView } from 'react-native'
-import {Text, Headline} from 'react-native-paper'
+import { StyleSheet, View, Dimensions, ScrollView, Platform } from 'react-native'
+import {Text, Headline, Button, Title} from 'react-native-paper'
 import MiniCardList from '../components/MiniCardList'
 import Context from '../context/Context'
 import Header from '../components/Header'
@@ -8,25 +8,19 @@ import {BarChart, LineChart} from 'react-native-chart-kit'
 
 export default function Statistics() {
     const {subscriptions, theme} = useContext(Context)
-  
-
-    function showChart(key) {
-        
-    }
 
     const chartConfig = {
         // backgroundColor: "yellow",
         backgroundGradientFrom: theme.background,
-      backgroundGradientTo: theme.background,
+        backgroundGradientTo: theme.background,
+        fillShadowGradient: theme.background,
+        fillShadowGradientOpacity: 1,
         color: (opacity = 1) => `${theme.accent}`,
         strokeWidth: 2, // optional, default 3
         barPercentage: 0.5,
-        useShadowColorFromDataset: false // optional
+        useShadowColorFromDataset: false, //optional
     }
-
    
-        
-
     function getCosts(subs) {
         var filler = []
 
@@ -35,7 +29,7 @@ export default function Statistics() {
         }
 
         var points = subs.reduce(function (acc, sub) {
-            acc[sub.startDay.getMonth()] = (acc[sub.startDay.getMonth()] || 0) + sub.cost
+            acc[sub.startDay.getMonth()] = acc[sub.startDay.getMonth()] + sub.cost
             return acc
         }, filler)
 
@@ -49,40 +43,39 @@ export default function Statistics() {
           {
             data: getCosts(subscriptions)
           }
-        ]
+        ],
     }
 
    
 
     return (
         <View style={styles(theme).container}>
-            <Header title="Statistics"/>
+            <Header title="Monthly Spending"/>
 
-            {/* chart part of the screen */}
             {/* <View style={{height: "45%"}}>
                 <Headline style={{left: "2%", color: theme.text}}>Subscriptions: {subscriptions.length}</Headline>
             </View>
-
-
-
-            <MiniCardList
+            */}
+            {/* <Title style={{color: theme.text, textAlign: "center"}}>Hey</Title> */}
+            <LineChart
+                width={Dimensions.get("window").width}
+                height={Dimensions.get("window").height - 300}
+                data={data}
+                verticalLabelRotation={50}
+                chartConfig={chartConfig}
+                withInnerLines={false}
+                yAxisLabel="$"
+                fromZero
+                onDataPointClick={({index}) => console.log(index)} //display all subscriptions that added up to the monthly total when clicked
+            />
+       
+            {/* <MiniCardList
                 subscriptions={subscriptions}
             /> */}
-            <ScrollView horizontal>
-                <LineChart
-                    data={data}
-                    width={Dimensions.get("window").width}
-                    height={Dimensions.get("window").height - 400}
-                    verticalLabelRotation={30}
-                    chartConfig={chartConfig}
-                    withInnerLines={false}
-                    yAxisLabel="$"
-                    fromZero
-                />
-            </ScrollView>
-            <MiniCardList
-                subscriptions={subscriptions}
-            />
+            <View style={{flexDirection: "row"}}>
+                <Button uppercase={false} color={theme.text}>Monthly Spending</Button>
+                <Button uppercase={false} color={theme.text}>Option 2</Button>
+            </View>
         </View>
     )
 }
@@ -91,6 +84,6 @@ export default function Statistics() {
 const styles = (theme) => StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: theme.background
+        backgroundColor: theme.background,
     }
 })

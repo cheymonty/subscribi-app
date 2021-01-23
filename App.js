@@ -176,7 +176,7 @@ export default function App() {
           component={Statistics}
           options={{
             tabBarIcon: ({focused}) => (
-              <AntDesign name="barschart" size={25} style={{color: focused? theme.primary : theme.inactiveTab}}/>
+              <AntDesign name="linechart" size={25} style={{color: focused? theme.primary : theme.inactiveTab}}/>
             ),
           }}/>
 
