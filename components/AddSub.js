@@ -8,6 +8,7 @@ import {dateToString, getEndDate} from '../utils/helpers'
 import {createNotification} from '../utils/notifications'
 import ActionSheet from 'react-native-actions-sheet'
 import Context from '../context/Context'
+import DropButton from './DropButton'
 
 
 export const AddSub = React.forwardRef(({}, ref) => {
@@ -136,16 +137,15 @@ export const AddSub = React.forwardRef(({}, ref) => {
                 title="Duration"
                 titleStyle={{color: theme.text, fontSize: 18}}
                 right={_=> 
-                    <Button 
-                        uppercase={false} 
-                        icon="arrow-down" 
-                        contentStyle={{flexDirection: "row-reverse", marginLeft: -5, top: 2}} 
-                        labelStyle={{marginRight: 10, fontSize: 17, color: theme.accent}} 
-                        color={theme.modal} 
+                    <DropButton
+                        uppercase={false}
+                        bgColor={theme.modal}
+                        textColor={theme.accent}
                         onPress={pickerButton}
+                        fontSize={17}
                     >
                         {duration}
-                    </Button>
+                    </DropButton>
                 }
             />
 

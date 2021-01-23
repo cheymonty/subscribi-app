@@ -11,9 +11,9 @@ export default function MiniCardList({subscriptions}) {
             key={subscriptions.length}
             columnWrapperStyle={{alignItems: "flex-start"}}
             renderItem={({item, index}) => {
-            return (
-                <MiniCard name={item.name} />
-            ) 
+                return (
+                    <MiniCard name={item.name} />
+                ) 
             }}
         /> 
     )

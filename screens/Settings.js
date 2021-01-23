@@ -1,9 +1,10 @@
 import React, {useContext} from 'react'
 import {StyleSheet, View} from 'react-native'
-import {Divider, Switch, List, Menu, Button} from 'react-native-paper'
+import {Divider, Switch, List, Menu} from 'react-native-paper'
 import {timeToString} from '../utils/helpers'
 import Header from '../components/Header'
 import Context from '../context/Context'
+import DropButton from '../components/DropButton'
 
 // state : {
 //     allowReminders: Boolean
@@ -62,15 +63,14 @@ export default function Settings() {
                         visible={timeMenu}
                         onDismiss={closeTimeMenu}
                         anchor={
-                            <Button 
-                                icon="arrow-down" 
-                                onPress={() => setTimeMenu(!timeMenu)} 
-                                color={theme.background} 
-                                contentStyle={{flexDirection: "row-reverse", marginLeft: -15, top: 2}} 
-                                labelStyle={{marginRight: 10, fontSize: 16, color: theme.accent}}
+                            <DropButton
+                                uppercase
+                                onPress={() => setTimeMenu(!timeMenu)}
+                                bgColor={theme.background}
+                                textColor={theme.accent}
                             >
                                 {timeToString(timeOfNotification)}
-                            </Button>
+                            </DropButton>
                         }
                     >
                         <Menu.Item onPress={() => {setTime(6)}} title="6:00 AM"/>

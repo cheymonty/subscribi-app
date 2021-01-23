@@ -1,6 +1,6 @@
 import React, {useContext, createRef} from 'react'
 import {StyleSheet, View} from 'react-native'
-import {FAB, Appbar, Headline} from 'react-native-paper'
+import {FAB, Appbar} from 'react-native-paper'
 import {AddSub} from '../components/AddSub'
 import {StatusBar} from 'expo-status-bar'
 import SubCardList from '../components/SubCardList'
@@ -33,11 +33,7 @@ export default function Home() {
 
             <AddSub ref={actionSheetRef}/>
 
-            {subscriptions.length === 0 && 
-                <Headline style={{textAlign: "center", color: theme.text, top: "35%"}}>Tap + to add a subscription</Headline>
-            }
-
-            <SubCardList subscriptions={subscriptions}/>
+            <SubCardList subscriptions={subscriptions} textColor={theme.text}/>
 
             <FAB style={styles(theme).fab} icon="plus" color={theme.background} onPress={() => actionSheetRef.current?.show()}/>
        
