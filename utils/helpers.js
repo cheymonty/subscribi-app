@@ -1,49 +1,4 @@
-import React from 'react'
-import { MaterialCommunityIcons } from '@expo/vector-icons';
-
-const Icon = ({name}) => {
-    name = name.toLowerCase()
-    return getLogo(name)
-};
-
 const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
-
-const preselects = [
-    {name: "playstation", color:"#006FCD"},
-    {name: "hulu", color:"#3DBB3D"},
-    {name: "nintendo-switch", color: "#E70009"},
-    {name: "spotify", color: "#1ED761"},
-    {name: "amazon", color: "#FF9900"},
-    {name: "netflix", color: "#E50914"}, 
-    {name: "apple", color: "#000000"}, 
-    {name: "xbox", color: "#107C11"},
-]
-
-function getLogo(name) {
-    let logo;
-    preselects.forEach(function (item) {
-        if (name === item.name)   
-          logo = item
-    })
-
-
-    if (logo)
-        return <MaterialCommunityIcons name={logo.name} size={24} color={logo.color} />
-    return <MaterialCommunityIcons name="calendar" size={24} color="#7328FF"/>
-}
-
-function getColor(name) {
-    let color;
-
-    preselects.forEach(function (item) {
-        if (name === item.name)
-            color = item.color
-    })
-
-    if (color)
-        return color
-    return "#7328FF"
-}
 
 function dateToString(date) {
     // let oneDay = 24 * 60 * 60 * 1000; // hours*minutes*seconds*milliseconds
@@ -105,4 +60,4 @@ function reviveDate(k, v) {
 }
 
 
-export {Icon, getColor, dateToString, timeToString, getEndDate, reviveDate}
+export {dateToString, timeToString, getEndDate, reviveDate}
