@@ -1,13 +1,15 @@
-import React, {useContext} from 'react'
+import React, {useContext, createRef} from 'react'
 import ActionSheet from 'react-native-actions-sheet'
 import {StyleSheet} from 'react-native';
 import {Title, List, Button} from 'react-native-paper'
 import Context from '../context/Context'
+import {EditSub} from './EditSub'
 
 
 //has to be a const to use forwarded ref correctly
 export const SubCardActions = React.forwardRef(({sub}, ref) => {
     const {deleteSub, theme} = useContext(Context)
+    const editRef = createRef()
     return (
         <ActionSheet ref={ref} bounceOnOpen gestureEnabled containerStyle={{backgroundColor: theme.modal}}>
              
@@ -25,9 +27,15 @@ export const SubCardActions = React.forwardRef(({sub}, ref) => {
                 title="Edit subscription"
                 titleStyle={{fontSize: 20, color: theme.text}}
                 left={props => <List.Icon {...props} color={theme.primary} icon="pencil-outline"/>}
+                onPress={_ => editRef.current?.show()}
             />
                 
-            <Button style={styles(theme).cancelButton} labelStyle={{color: "black", fontWeight: "bold"}} mode="contained" onPress={_ => ref.current?.hide()}>Cancel</Button>     
+            <Button style={styles(theme).cancelButton} labelStyle={{color: "black", fontWeight: "bold"}} mode="contained" onPress={_ => ref.current?.hide()}>Cancel</Button>   
+
+            <EditSub
+                ref={editRef}
+                oldSub={sub}
+            />  
             
         </ActionSheet>
     )

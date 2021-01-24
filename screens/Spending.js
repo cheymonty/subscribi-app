@@ -1,13 +1,14 @@
 import React, {useContext} from 'react'
-import { StyleSheet, View, Dimensions, ScrollView, Platform } from 'react-native'
+import { StyleSheet, View, Dimensions} from 'react-native'
 import {Text, Headline, Button, Title} from 'react-native-paper'
 import MiniCardList from '../components/MiniCardList'
 import Context from '../context/Context'
 import Header from '../components/Header'
 import {BarChart, LineChart} from 'react-native-chart-kit'
 
-export default function Statistics() {
+export default function Spending() {
     const {subscriptions, theme} = useContext(Context)
+    const shortMonths = ["Jan", "Feb", "Mar", "Apr", "May", "June", "July", "Aug", "Sep", "Oct", "Nov", "Dec"]
 
     const chartConfig = {
         // backgroundColor: "yellow",
@@ -38,7 +39,7 @@ export default function Statistics() {
 
   
     const data = {
-        labels: ["Jan", "Feb", "Mar", "Apr", "May", "June", "July", "Aug", "Sep", "Oct", "Nov", "Dec"],
+        labels: shortMonths,
         datasets: [
           {
             data: getCosts(subscriptions)

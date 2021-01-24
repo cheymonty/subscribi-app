@@ -3,7 +3,7 @@ import React, {useState, useEffect, useRef} from 'react'
 import {Platform, LayoutAnimation, UIManager} from 'react-native'
 import Home from './screens/Home'
 import Settings from './screens/Settings'
-import Statistics from './screens/Statistics'
+import Spending from './screens/Spending'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Provider as PaperProvider } from 'react-native-paper'
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs'
@@ -78,10 +78,14 @@ export default function App() {
   })
   const addSub = (sub) => {
     let s = [...subscriptions]
-    s.unshift(sub)
-    updateStorage("@subscriptions", s)
+
+    if (sub !== null) {
+      s = [...subscriptions]
+      s.unshift(sub)
+      updateStorage("@subscriptions", s)
+    }
     LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut)
-    setSubs(s)
+    setSubs(s) 
   }
 
   const deleteSub = (key) => {
@@ -172,8 +176,8 @@ export default function App() {
 
         
         <BottomTab.Screen 
-          name="Statistics" 
-          component={Statistics}
+          name="Spending" 
+          component={Spending}
           options={{
             tabBarIcon: ({focused}) => (
               <AntDesign name="linechart" size={25} style={{color: focused? theme.primary : theme.inactiveTab}}/>
