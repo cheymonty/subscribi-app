@@ -59,7 +59,6 @@ export const EditSub = React.forwardRef(({oldSub}, ref) => {
         
         
         reset()
-        ref.current?.hide()
     }
 
     function startButton() {

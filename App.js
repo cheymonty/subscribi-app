@@ -79,11 +79,10 @@ export default function App() {
   const addSub = (sub) => {
     let s = [...subscriptions]
 
-    if (sub !== null) {
-      s = [...subscriptions]
+    if (sub !== null)
       s.unshift(sub)
-      updateStorage("@subscriptions", s)
-    }
+      
+    updateStorage("@subscriptions", s)
     LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut)
     setSubs(s) 
   }
