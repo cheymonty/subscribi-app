@@ -1,6 +1,6 @@
 import React, {useContext} from 'react'
 import { StyleSheet, View, Dimensions} from 'react-native'
-import {Text, Headline, Button, Title} from 'react-native-paper'
+import {Button} from 'react-native-paper'
 import MiniCardList from '../components/MiniCardList'
 import Context from '../context/Context'
 import Header from '../components/Header'
@@ -47,17 +47,17 @@ export default function Spending() {
         ],
     }
 
+    function pointClick(subs, index) {
+        var subsInMonth = subs.filter(sub => sub.startDay.toString().includes(shortMonths[index]))
+
+        console.log(subsInMonth)
+    }
+
    
 
     return (
         <View style={styles(theme).container}>
             <Header title="Monthly Spending"/>
-
-            {/* <View style={{height: "45%"}}>
-                <Headline style={{left: "2%", color: theme.text}}>Subscriptions: {subscriptions.length}</Headline>
-            </View>
-            */}
-            {/* <Title style={{color: theme.text, textAlign: "center"}}>Hey</Title> */}
             <LineChart
                 width={Dimensions.get("window").width}
                 height={Dimensions.get("window").height - 300}
@@ -67,9 +67,9 @@ export default function Spending() {
                 withInnerLines={false}
                 yAxisLabel="$"
                 fromZero
-                onDataPointClick={({index}) => console.log(index)} //display all subscriptions that added up to the monthly total when clicked
+                onDataPointClick={({index}) => pointClick(subscriptions, index)} //display all subscriptions that added up to the monthly total when clicked
             />
-       
+        
             {/* <MiniCardList
                 subscriptions={subscriptions}
             /> */}
