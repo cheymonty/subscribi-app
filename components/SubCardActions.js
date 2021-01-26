@@ -3,7 +3,7 @@ import ActionSheet from 'react-native-actions-sheet'
 import {StyleSheet} from 'react-native';
 import {Title, List, Button} from 'react-native-paper'
 import Context from '../context/Context'
-import {EditSub} from './EditSub'
+import {SubModal} from './SubModal'
 
 
 //has to be a const to use forwarded ref correctly
@@ -32,10 +32,7 @@ export const SubCardActions = React.forwardRef(({sub}, ref) => {
                 
             <Button style={styles(theme).cancelButton} labelStyle={{color: "black", fontWeight: "bold"}} mode="contained" onPress={_ => ref.current?.hide()}>Cancel</Button>   
 
-            <EditSub
-                ref={editRef}
-                oldSub={sub}
-            />  
+            <SubModal ref={editRef} oldSub={sub}/>  
             
         </ActionSheet>
     )

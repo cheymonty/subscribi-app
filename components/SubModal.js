@@ -11,15 +11,15 @@ import Context from '../context/Context'
 import DropButton from './DropButton'
 
 
-export const AddSub = React.forwardRef(({}, ref) => {
-    const [name, setName] = useState('')
-    const [cost, setCost] = useState(0)
-    const [startDate, setStartDate] = useState(new Date())
+export const SubModal = React.forwardRef(({oldSub = null}, ref) => {
+    const [name, setName] = useState(oldSub? oldSub.name : "")
+    const [cost, setCost] = useState(oldSub? oldSub.cost : 0)
+    const [startDate, setStartDate] = useState(oldSub? oldSub.startDay : new Date())
     const [startDatePicker, setStartDatePicker] = useState(false)
     const [durationPicker, setDurationPicker] = useState(false)
-    const [duration, setDuration] = useState("1 days")
+    const [duration, setDuration] = useState(oldSub? oldSub.duration : "1 days")
 
-    const {addSub, theme, timeOfNotification} = useContext(Context)
+    const {subscriptions, addSub, theme, timeOfNotification} = useContext(Context)
 
     function reset() {
         setName("")
@@ -35,22 +35,39 @@ export const AddSub = React.forwardRef(({}, ref) => {
         let endDate = getEndDate(startDate, duration)
         let key = `${Math.floor(Math.random() * 1000)}-${name}`
 
-        let newSub = {
-            name: name,
-            key: key,
-            cost: cost,
-            startDay: startDate, 
-            endDay: endDate,
-            duration: duration,
-        }
+        if (oldSub) {
+            let i = subscriptions.findIndex(sub => sub.key === oldSub.key)
+            //after this block is run, "oldSub" doesnt exist anymore
+            subscriptions[i].name = name
+            subscriptions[i].key = key
+            subscriptions[i].cost = cost
+            subscriptions[i].startDay = startDate
+            subscriptions[i].endDay = endDate
+            subscriptions[i].duration = duration
 
+            addSub(null)
+            
+        } else {
+            let newSub = {
+                name: name,
+                key: key,
+                cost: cost,
+                startDay: startDate, 
+                endDay: endDate,
+                duration: duration,
+            }
+
+            addSub(newSub)
+        }
+        
         //makes sure endDate is in the future for notification purposes
+        //TODO: need to delete old notification if editing
         if (endDate > new Date())
             createNotification(name, endDate, timeOfNotification)
         
-        addSub(newSub)
         reset()
-        ref.current?.hide()
+        if (!oldSub)
+            ref.current?.hide()
     }
 
     function startButton() {
@@ -71,7 +88,7 @@ export const AddSub = React.forwardRef(({}, ref) => {
 
     return (
         <ActionSheet ref={ref} bounceOnOpen gestureEnabled onClose={reset} openAnimationSpeed={15} containerStyle={{backgroundColor: theme.modal}}>
-            <Title style={styles(theme).sheetTitle}>New Subscription</Title>
+            <Title style={styles(theme).sheetTitle}>{oldSub? `Edit ${name}` : "New Subscription"}</Title>
 
             <List.Item
                 style={{marginBottom: "3%"}}
@@ -81,7 +98,7 @@ export const AddSub = React.forwardRef(({}, ref) => {
                     <TextInput 
                         style={styles(theme).nameInput} 
                         maxLength={20}
-                        placeholder="Enter name" 
+                        placeholder={oldSub? name : "Enter name"} 
                         placeholderTextColor={theme.lightText}
                         onFocus={() => setStartDatePicker(false)}
                         onChangeText={name => setName(name)}
@@ -100,7 +117,7 @@ export const AddSub = React.forwardRef(({}, ref) => {
                         style={styles(theme).costInput} 
                         keyboardType="numeric"
                         maxLength={6}
-                        placeholder="$"
+                        placeholder={oldSub? `$${cost.toString()}` : "$"}
                         returnKeyType='done' 
                         placeholderTextColor={theme.lightText}
                         onFocus={() => setStartDatePicker(false)}

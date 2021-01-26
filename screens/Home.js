@@ -1,7 +1,7 @@
 import React, {useContext, createRef} from 'react'
 import {StyleSheet, View} from 'react-native'
 import {FAB, Appbar} from 'react-native-paper'
-import {AddSub} from '../components/AddSub'
+import {SubModal} from '../components/SubModal'
 import {StatusBar} from 'expo-status-bar'
 import SubCardList from '../components/SubCardList'
 import Context from '../context/Context'
@@ -32,7 +32,7 @@ export default function Home() {
             </Appbar.Header>
             
 
-            <AddSub ref={actionSheetRef}/>
+            <SubModal ref={actionSheetRef}/>
 
             <SubCardList subscriptions={subscriptions} textColor={theme.text}/>
 
