@@ -9,7 +9,7 @@ export default function DropButton({uppercase, onPress, bgColor, textColor, font
             icon="arrow-down"
             onPress={onPress}
             color={bgColor}
-            contentStyle={{flexDirection: "row-reverse", marginLeft: -15, top: 2}} 
+            contentStyle={{flexDirection: "row-reverse", marginLeft: -5, top: 2}} 
             labelStyle={{marginRight: 10, fontSize: fontSize, color: textColor}}
         >
             {children}

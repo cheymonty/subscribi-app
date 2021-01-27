@@ -60,10 +60,8 @@ export const SubModal = React.forwardRef(({oldSub = null}, ref) => {
             addSub(newSub)
         }
         
-        //makes sure endDate is in the future for notification purposes
         //TODO: need to delete old notification if editing
-        if (endDate > new Date())
-            createNotification(name, endDate, timeOfNotification)
+        createNotification(name, endDate, timeOfNotification)
         
         reset()
         if (!oldSub)
