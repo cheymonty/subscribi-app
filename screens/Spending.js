@@ -56,30 +56,26 @@ export default function Spending() {
    
 
     return (
-        <View style={styles(theme).container}>
+        <ScrollView bounces={false} style={styles(theme).container}>
             <Header title="Monthly Spending"/>
-            <ScrollView>
-                <LineChart
-                    width={Dimensions.get("window").width}
-                    height={Dimensions.get("window").height - 300}
-                    data={data}
-                    verticalLabelRotation={50}
-                    chartConfig={chartConfig}
-                    withInnerLines={false}
-                    yAxisLabel="$"
-                    fromZero
-                    onDataPointClick={({index}) => pointClick(subscriptions, index)} //display all subscriptions that added up to the monthly total when clicked
-                />
+            <LineChart
+                width={Dimensions.get("window").width}
+                height={Dimensions.get("window").height - 300}
+                data={data}
+                verticalLabelRotation={50}
+                chartConfig={chartConfig}
+                withInnerLines={false}
+                yAxisLabel="$"
+                fromZero
+                onDataPointClick={({index}) => pointClick(subscriptions, index)} //display all subscriptions that added up to the monthly total when clicked
+            />
             
-                {/* <MiniCardList
-                    subscriptions={subscriptions}
-                /> */}
-                <View style={{flexDirection: "row"}}>
-                    <Button uppercase={false} color={theme.text}>Monthly Spending</Button>
-                    <Button uppercase={false} color={theme.text}>Option 2</Button>
-                </View>
-            </ScrollView>
-        </View>
+            {/* <MiniCardList subscriptions={subscriptions}/> */}
+            <View style={{flexDirection: "row"}}>
+                <Button uppercase={false} color={theme.text}>Monthly Spending</Button>
+                <Button uppercase={false} color={theme.text}>Option 2</Button>
+            </View>
+        </ScrollView>
     )
 }
 

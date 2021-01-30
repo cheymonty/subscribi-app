@@ -22,12 +22,12 @@ export const SubModal = React.forwardRef(({oldSub = null}, ref) => {
     const {subscriptions, addSub, theme, timeOfNotification} = useContext(Context)
 
     function reset() {
-        setName("")
-        setCost(0)
-        setStartDate(new Date())
+        setName(oldSub? oldSub.name : "")
+        setCost(oldSub? oldSub.cost : 0)
+        setStartDate(oldSub? oldSub.startDay : new Date())
         setStartDatePicker(false)
         setDurationPicker(false)
-        setDuration("1 days")
+        setDuration(oldSub? oldSub.duration : "1 days")
     }
 
     //structure newSub
