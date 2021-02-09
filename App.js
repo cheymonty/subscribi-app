@@ -18,7 +18,6 @@ import {reviveDate} from './utils/helpers'
 import {changeNotifications} from './utils/notifications'
 
 import Context from './context/Context'
-import { sub } from 'react-native-reanimated'
 
 const BottomTab = createBottomTabNavigator()
 
