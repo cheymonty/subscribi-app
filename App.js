@@ -111,6 +111,7 @@ export default function App() {
     let d = await AsyncStorage.getItem("@darkMode")
     JSON.parse(d) ? setDarkMode(true) : setDarkMode(false)
   })
+
   const toggleDarkMode = () => {
     setDarkMode(!darkMode)
     updateStorage("@darkMode", !darkMode)
@@ -121,6 +122,7 @@ export default function App() {
     let d = await AsyncStorage.getItem("@darkMode")
     JSON.parse(d) ? setTheme(darkTheme) : setTheme(lightTheme)
   })
+
   const toggleTheme = (d) => {
     if (d)
       setTheme(darkTheme)
@@ -140,7 +142,7 @@ export default function App() {
   }
 
 
-  
+
   const global = {
     subscriptions: subscriptions,
     addSub,
