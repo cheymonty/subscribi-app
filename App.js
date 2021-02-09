@@ -105,13 +105,6 @@ export default function App() {
       LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut)
       setSubs(s)
     }
-    // let s = [...subscriptions]
-    // if (s.length > 1) { //so there's no unneeded calculations done
-    //   s.sort((a, b) => a.endDay - b.endDay)
-    //   updateStorage("@subscriptions", s)
-    //   LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut)
-    //   setSubs(s)
-    // }
   }
 
   const [darkMode, setDarkMode] = useState(async () => {
