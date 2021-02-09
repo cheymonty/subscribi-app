@@ -1,9 +1,10 @@
 import React, {useContext, createRef} from 'react'
 import ActionSheet from 'react-native-actions-sheet'
-import {StyleSheet} from 'react-native';
-import {Title, List, Button} from 'react-native-paper'
+import {StyleSheet} from 'react-native'
+import {Title, List} from 'react-native-paper'
 import Context from '../context/Context'
 import {SubModal} from './SubModal'
+import ActionButton from './ActionButton'
 
 
 //has to be a const to use forwarded ref correctly
@@ -30,7 +31,7 @@ export const SubCardActions = React.forwardRef(({sub}, ref) => {
                 onPress={_ => editRef.current?.show()}
             />
                 
-            <Button style={styles(theme).cancelButton} labelStyle={{color: "black", fontWeight: "bold"}} mode="contained" onPress={_ => ref.current?.hide()}>Cancel</Button>   
+            <ActionButton bgColor={theme.lightText} mode="contained" onPress={_ => ref.current?.hide()}>Cancel</ActionButton>   
 
             <SubModal ref={editRef} oldSub={sub}/>  
             
@@ -41,7 +42,6 @@ export const SubCardActions = React.forwardRef(({sub}, ref) => {
 
 
 const styles = (theme) => StyleSheet.create({
-  
     sheetTitle: {
         textAlign: "center", 
         fontSize: 30, 
@@ -49,15 +49,4 @@ const styles = (theme) => StyleSheet.create({
         paddingTop: 2,
         color: theme.text
     },
-
-    cancelButton: {
-        width: "70%", 
-        margin: 22,
-        backgroundColor: "#DCDCDC",
-        borderWidth: 2,
-        borderColor: "#DCDCDC",
-        borderRadius: 20,
-        marginLeft: "15%",       
-    },
-
 })

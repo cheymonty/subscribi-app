@@ -1,6 +1,6 @@
 import React, {useState, useContext} from 'react'
 import { StyleSheet, TextInput, Keyboard, Platform} from 'react-native'
-import { Button, Title, List} from 'react-native-paper'
+import {Title, Button, List} from 'react-native-paper'
 import DateTimePicker from '@react-native-community/datetimepicker'
 import SegmentedPicker from 'react-native-segmented-picker'
 import constants from '../utils/constants'
@@ -9,6 +9,7 @@ import {createNotification} from '../utils/notifications'
 import ActionSheet from 'react-native-actions-sheet'
 import Context from '../context/Context'
 import DropButton from './DropButton'
+import ActionButton from './ActionButton'
 
 
 export const SubModal = React.forwardRef(({oldSub = null}, ref) => {
@@ -178,7 +179,7 @@ export const SubModal = React.forwardRef(({oldSub = null}, ref) => {
                 options={constants.PICKER_OPTIONS}    
             />
 
-            <Button style={styles(theme).doneButton} disabled={name.length > 0 ? false : true} mode="contained" onPress={submit}>Done</Button>
+            <ActionButton bgColor={theme.primary} disabled={name.length > 0 ? false : true} mode="contained" onPress={submit}>Done</ActionButton>
         </ActionSheet>
        
     )
@@ -209,15 +210,5 @@ const styles = (theme) => StyleSheet.create({
         color: theme.accent,
         fontSize: 18,
         fontWeight: "500"
-    },
-
-    doneButton: {
-        width: "70%", 
-        margin: 22,
-        backgroundColor: theme.primary,
-        borderWidth: 2,
-        borderColor: theme.primary,
-        borderRadius: 20,
-        marginLeft: "15%",     
     },
 })

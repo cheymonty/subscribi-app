@@ -18,6 +18,7 @@ import {reviveDate} from './utils/helpers'
 import {changeNotifications} from './utils/notifications'
 
 import Context from './context/Context'
+import { sub } from 'react-native-reanimated'
 
 const BottomTab = createBottomTabNavigator()
 
@@ -97,13 +98,20 @@ export default function App() {
   }
 
   const sortSubs = () => {
-    let s = [...subscriptions]
-    if (s.length > 1) { //so there's no unneeded calculations done
+    if (subscriptions.length > 1) {
+      let s = [...subscriptions]
       s.sort((a, b) => a.endDay - b.endDay)
       updateStorage("@subscriptions", s)
       LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut)
       setSubs(s)
     }
+    // let s = [...subscriptions]
+    // if (s.length > 1) { //so there's no unneeded calculations done
+    //   s.sort((a, b) => a.endDay - b.endDay)
+    //   updateStorage("@subscriptions", s)
+    //   LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut)
+    //   setSubs(s)
+    // }
   }
 
   const [darkMode, setDarkMode] = useState(async () => {
