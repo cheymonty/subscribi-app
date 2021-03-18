@@ -1,10 +1,13 @@
-**Subscribi**
+# Subscribi
 
-Home
-![Home](images/empty_home.png)
+### Home
 
-Edit
-![Edit a subscription](images/edit_sub.png)
+<img src="images/empty_home.png" height="200" />
 
-Darkmode
-![Darkmode](images/darkmode.png)
+### Edit
+
+<img src="images/edit_sub.png" height="200"/>
+
+### Darkmode
+
+<img src="images/darkmode.png" height="200"/>
