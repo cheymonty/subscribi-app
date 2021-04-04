@@ -1,5 +1,7 @@
 # Subscribi
 
+![Subscribi in Action](gif.gif)
+
 ### Home
 
 <img src="images/empty_home.png" height="500" />
