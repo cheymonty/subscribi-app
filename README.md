@@ -1,6 +1,8 @@
 # Subscribi
 
-![Subscribi in Action](images/gif.gif)
+### Subscribi in Action
+
+<img src="images/gif.gif" height="500"/>
 
 ### Home
 
